@@ -1,23 +1,24 @@
-﻿using MagazynLaptopowWPF.Models;
-using MagazynLaptopowWPF.Services; // Potrzebne repozytorium
-using System.Collections.ObjectModel; // Dla ObservableCollection
-using System.ComponentModel; // Dla ICollectionView
-using System.Windows.Data; // Dla CollectionViewSource
-using System.Windows.Input; // Dla ICommand
+using MagazynLaptopowWPF.Models;
+using MagazynLaptopowWPF.Services;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Windows.Data;
+using System.Windows.Input;
 using System.Threading.Tasks;
 using System.Linq;
-using Microsoft.Win32; // Dla dialogów plików
-using System.Windows; // Dla MessageBox
-using MagazynLaptopowWPF.Views; // Dla AddEditLaptopWindow
-using MagazynLaptopowWPF.ViewModels; // Dla AddEditLaptopViewModel (jeśli jeszcze nie ma)
+using Microsoft.Win32;
+using System.Windows;
+using MagazynLaptopowWPF.Views;
+using System.IO;
+using System;
+using System.Collections.Generic;
 
 namespace MagazynLaptopowWPF.ViewModels
 {
     public class MainViewModel : BaseViewModel
     {
         private readonly ILaptopRepository _laptopRepository;
-        // private readonly ICsvService _csvService; // Do wstrzyknięcia serwisu CSV
-        // private readonly IDialogService _dialogService; // Do wstrzyknięcia serwisu dialogów
+        private readonly AppDbContext _dbContext;
 
         private ObservableCollection<Laptop> _laptopy;
         public ObservableCollection<Laptop> Laptopy
@@ -34,7 +35,6 @@ namespace MagazynLaptopowWPF.ViewModels
             set => SetProperty(ref _laptopyView, value);
         }
 
-
         private Laptop? _selectedLaptop;
         public Laptop? SelectedLaptop
         {
@@ -43,9 +43,8 @@ namespace MagazynLaptopowWPF.ViewModels
             {
                 if (SetProperty(ref _selectedLaptop, value))
                 {
-                    // Ważne: Powiadom komendy o zmianie możliwości wykonania
-                    ((RelayCommand)EditLaptopCommand).RaiseCanExecuteChanged();
-                    ((RelayCommand)DeleteLaptopCommand).RaiseCanExecuteChanged();
+                    // Powiadom komendy o zmianie możliwości wykonania
+                    CommandManager.InvalidateRequerySuggested();
                 }
             }
         }
@@ -83,6 +82,12 @@ namespace MagazynLaptopowWPF.ViewModels
             set => SetProperty(ref _statusMessage, value);
         }
 
+        private bool _isBusy;
+        public bool IsBusy
+        {
+            get => _isBusy;
+            set => SetProperty(ref _isBusy, value);
+        }
 
         // --- Komendy (Commands) ---
         public ICommand LoadDataCommand { get; }
@@ -91,51 +96,55 @@ namespace MagazynLaptopowWPF.ViewModels
         public ICommand DeleteLaptopCommand { get; }
         public ICommand ExportCommand { get; }
         public ICommand ImportCommand { get; }
-
+        public ICommand ClearFiltersCommand { get; }
 
         // Konstruktor
-        public MainViewModel(/*ILaptopRepository laptopRepository, ICsvService csvService, IDialogService dialogService*/)
+        public MainViewModel()
         {
-            // --- Wstrzykiwanie zależności (lepsze podejście) ---
-            // _laptopRepository = laptopRepository;
-            // _csvService = csvService;
-            // _dialogService = dialogService;
-
-            // --- Prostsze podejście bez DI (na początek) ---
-            var dbContext = new AppDbContext();
-            _laptopRepository = new LaptopRepository(dbContext);
-            // _csvService = new CsvService(); // Musisz utworzyć tę klasę
-            // _dialogService = new DialogService(); // Musisz utworzyć tę klasę
-
             _laptopy = new ObservableCollection<Laptop>();
-            _laptopyView = CollectionViewSource.GetDefaultView(_laptopy); // Tworzymy widok kolekcji
+            _laptopyView = CollectionViewSource.GetDefaultView(_laptopy);
 
-            // Definicje komend (użyjemy prostej implementacji RelayCommand poniżej)
-            LoadDataCommand = new RelayCommand(async _ => await LoadDataAsync());
-            AddLaptopCommand = new RelayCommand(_ => AddLaptop());
-            EditLaptopCommand = new RelayCommand(_ => EditLaptop(), _ => CanEditOrDeleteLaptop()); // CanExecute
-            DeleteLaptopCommand = new RelayCommand(async _ => await DeleteLaptopAsync(), _ => CanEditOrDeleteLaptop()); // CanExecute
-            ExportCommand = new RelayCommand(async _ => await ExportDataAsync());
-            ImportCommand = new RelayCommand(async _ => await ImportDataAsync());
+            // Korzystaj z DbContext zainicjowanego w App.xaml.cs zamiast tworzyć nowy
+            _dbContext = App.DbContext ?? new AppDbContext();
+            _laptopRepository = new LaptopRepository(_dbContext);
 
+            // Definicje komend
+            LoadDataCommand = new RelayCommand(async _ => await LoadDataAsync(), _ => !IsBusy);
+            AddLaptopCommand = new RelayCommand(_ => AddLaptop(), _ => !IsBusy);
+            EditLaptopCommand = new RelayCommand(_ => EditLaptop(), _ => CanEditOrDeleteLaptop() && !IsBusy);
+            DeleteLaptopCommand = new RelayCommand(async _ => await DeleteLaptopAsync(), _ => CanEditOrDeleteLaptop() && !IsBusy);
+            ExportCommand = new RelayCommand(async _ => await ExportDataAsync(), _ => Laptopy.Count > 0 && !IsBusy);
+            ImportCommand = new RelayCommand(async _ => await ImportDataAsync(), _ => !IsBusy);
+            ClearFiltersCommand = new RelayCommand(_ => ClearFilters(), _ => !string.IsNullOrEmpty(FilterMarka) || !string.IsNullOrEmpty(FilterModel));
 
-            // Konfiguracja sortowania (można dodać w XAML lub tutaj)
+            // Konfiguracja sortowania
             _laptopyView.SortDescriptions.Add(new SortDescription("Marka", ListSortDirection.Ascending));
             _laptopyView.SortDescriptions.Add(new SortDescription("Model", ListSortDirection.Ascending));
 
             // Konfiguracja filtrowania
             _laptopyView.Filter = FilterLogic;
 
-
-            // Załaduj dane przy starcie
-            _ = LoadDataAsync(); // Uruchom asynchronicznie bez czekania
+            // Ładuj dane w osobnym wątku, aby uniknąć blokowania UI po inicjalizacji
+            Application.Current.Dispatcher.InvokeAsync(async () =>
+            {
+                try
+                {
+                    await LoadDataAsync();
+                }
+                catch (Exception ex)
+                {
+                    // Logowanie wyjątku, ale nie pokazuj MessageBox w konstruktorze
+                    Console.WriteLine($"Błąd ładowania danych: {ex.Message}");
+                    StatusMessage = "Nie udało się załadować danych. Kliknij 'Odśwież', aby spróbować ponownie.";
+                }
+            });
         }
 
         // --- Metody ---
-
-        private async Task LoadDataAsync()
+        public async Task LoadDataAsync()
         {
             StatusMessage = "Ładowanie danych...";
+            IsBusy = true;
             try
             {
                 var data = await _laptopRepository.GetAllLaptopsAsync();
@@ -145,43 +154,59 @@ namespace MagazynLaptopowWPF.ViewModels
                     Laptopy.Add(laptop);
                 }
                 StatusMessage = $"Załadowano {Laptopy.Count} laptopów.";
+                // Odśwież widok, aby zastosować filtrowanie
+                LaptopyView.Refresh();
             }
             catch (Exception ex)
             {
                 StatusMessage = $"Błąd ładowania danych: {ex.Message}";
-                // Tutaj obsługa błędów, np. MessageBox
                 MessageBox.Show($"Wystąpił błąd podczas ładowania danych:\n{ex.Message}", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            finally
+            {
+                IsBusy = false;
             }
         }
 
         private void AddLaptop()
         {
-            var newLaptop = new Laptop(); // Pusty laptop do dodania
-            var addEditVM = new AddEditLaptopViewModel(newLaptop); // ViewModel dla okna dialogowego
-            var dialog = new AddEditLaptopWindow(addEditVM); // Tworzymy okno
+            var newLaptop = new Laptop
+            {
+                Ilosc = 1 // Domyślna wartość
+            };
 
-            // Opcjonalnie: Ustaw właściciela, aby okno było modalne
+            var addEditVM = new AddEditLaptopViewModel(newLaptop);
+            var dialog = new AddEditLaptopWindow(addEditVM);
+
             dialog.Owner = Application.Current.MainWindow;
 
-            if (dialog.ShowDialog() == true) // Pokaż okno i sprawdź wynik
+            if (dialog.ShowDialog() == true)
             {
-                // Jeśli użytkownik kliknął "Zapisz" (zakładamy, że ViewModel ustawił IsSaved)
-                _ = AddLaptopInternalAsync(addEditVM.Laptop); // Uruchom dodawanie asynchronicznie
+                _ = AddLaptopInternalAsync(addEditVM.Laptop);
             }
         }
 
         private async Task AddLaptopInternalAsync(Laptop laptopToAdd)
         {
+            IsBusy = true;
+            StatusMessage = "Dodawanie laptopa...";
             try
             {
                 await _laptopRepository.AddLaptopAsync(laptopToAdd);
-                Laptopy.Add(laptopToAdd); // Dodaj do widocznej kolekcji
+                Laptopy.Add(laptopToAdd); // Poprawiona nazwa z Laptops na Laptopy
                 StatusMessage = $"Dodano: {laptopToAdd.Marka} {laptopToAdd.Model}";
+
+                // Odśwież widok, aby zastosować sortowanie
+                LaptopyView.Refresh();
             }
             catch (Exception ex)
             {
                 StatusMessage = $"Błąd dodawania laptopa: {ex.Message}";
                 MessageBox.Show($"Wystąpił błąd podczas dodawania laptopa:\n{ex.Message}", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            finally
+            {
+                IsBusy = false;
             }
         }
 
@@ -198,7 +223,6 @@ namespace MagazynLaptopowWPF.ViewModels
                 SystemOperacyjny = SelectedLaptop.SystemOperacyjny,
                 RozmiarEkranu = SelectedLaptop.RozmiarEkranu,
                 Ilosc = SelectedLaptop.Ilosc
-                // Skopiuj inne pola jeśli istnieją
             };
 
             var addEditVM = new AddEditLaptopViewModel(laptopToEditCopy);
@@ -207,47 +231,67 @@ namespace MagazynLaptopowWPF.ViewModels
 
             if (dialog.ShowDialog() == true)
             {
-                _ = EditLaptopInternalAsync(addEditVM.Laptop); // Uruchom edycję asynchronicznie
+                _ = EditLaptopInternalAsync(addEditVM.Laptop);
             }
         }
 
+        // Naprawiona metoda edycji laptopa - rozwiązanie problemu śledzenia encji
         private async Task EditLaptopInternalAsync(Laptop editedLaptop)
         {
+            IsBusy = true;
+            StatusMessage = "Aktualizowanie laptopa...";
             try
             {
-                await _laptopRepository.UpdateLaptopAsync(editedLaptop);
+                // Pobierz oryginalny obiekt z bazy danych
+                var originalLaptop = await _laptopRepository.GetLaptopByIdAsync(editedLaptop.Id);
 
-                // Znajdź oryginalny obiekt w kolekcji i zaktualizuj jego właściwości
-                var originalLaptop = Laptopy.FirstOrDefault(l => l.Id == editedLaptop.Id);
                 if (originalLaptop != null)
                 {
+                    // Aktualizuj właściwości oryginalnego obiektu
                     originalLaptop.Marka = editedLaptop.Marka;
                     originalLaptop.Model = editedLaptop.Model;
                     originalLaptop.SystemOperacyjny = editedLaptop.SystemOperacyjny;
                     originalLaptop.RozmiarEkranu = editedLaptop.RozmiarEkranu;
                     originalLaptop.Ilosc = editedLaptop.Ilosc;
-                    // Zaktualizuj inne pola
 
-                    // Ważne: Ręczne odświeżenie widoku, jeśli edycja była na kopii
-                    // Lub jeśli Laptop nie implementuje INotifyPropertyChanged
+                    // Zapisz zmiany
+                    await _dbContext.SaveChangesAsync();
+
+                    // Zaktualizuj wersję w kolekcji UI
+                    var uiLaptop = Laptopy.FirstOrDefault(l => l.Id == editedLaptop.Id);
+                    if (uiLaptop != null)
+                    {
+                        uiLaptop.Marka = editedLaptop.Marka;
+                        uiLaptop.Model = editedLaptop.Model;
+                        uiLaptop.SystemOperacyjny = editedLaptop.SystemOperacyjny;
+                        uiLaptop.RozmiarEkranu = editedLaptop.RozmiarEkranu;
+                        uiLaptop.Ilosc = editedLaptop.Ilosc;
+                    }
+
+                    // Odśwież widok
                     LaptopyView.Refresh();
+                    StatusMessage = $"Zaktualizowano: {editedLaptop.Marka} {editedLaptop.Model}";
                 }
-
-                StatusMessage = $"Zaktualizowano: {editedLaptop.Marka} {editedLaptop.Model}";
+                else
+                {
+                    throw new Exception("Nie znaleziono laptopa o podanym Id.");
+                }
             }
             catch (Exception ex)
             {
                 StatusMessage = $"Błąd aktualizacji laptopa: {ex.Message}";
                 MessageBox.Show($"Wystąpił błąd podczas aktualizacji laptopa:\n{ex.Message}", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+            finally
+            {
+                IsBusy = false;
+            }
         }
-
 
         private async Task DeleteLaptopAsync()
         {
             if (SelectedLaptop == null) return;
 
-            // Potwierdzenie usunięcia
             var result = MessageBox.Show($"Czy na pewno chcesz usunąć laptopa: {SelectedLaptop.Marka} {SelectedLaptop.Model}?",
                                          "Potwierdzenie usunięcia",
                                          MessageBoxButton.YesNo,
@@ -255,6 +299,8 @@ namespace MagazynLaptopowWPF.ViewModels
 
             if (result == MessageBoxResult.Yes)
             {
+                IsBusy = true;
+                StatusMessage = "Usuwanie laptopa...";
                 try
                 {
                     await _laptopRepository.DeleteLaptopAsync(SelectedLaptop.Id);
@@ -267,23 +313,32 @@ namespace MagazynLaptopowWPF.ViewModels
                     StatusMessage = $"Błąd usuwania laptopa: {ex.Message}";
                     MessageBox.Show($"Wystąpił błąd podczas usuwania laptopa:\n{ex.Message}", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
+                finally
+                {
+                    IsBusy = false;
+                }
             }
         }
 
         private bool CanEditOrDeleteLaptop()
         {
-            return SelectedLaptop != null; // Można edytować/usuwać tylko jeśli coś jest zaznaczone
+            return SelectedLaptop != null;
         }
 
         // --- Filtrowanie ---
         private void ApplyFilter()
         {
-            // Odśwież widok, aby zastosować logikę filtrowania
             LaptopyView.Refresh();
             // Aktualizuj status o liczbie widocznych elementów
-            int visibleCount = Laptopy.Count(item => FilterLogic(item)); // Ponownie zastosuj logikę, aby policzyć
+            int visibleCount = Laptopy.Count(item => FilterLogic(item));
             StatusMessage = $"Widocznych: {visibleCount} z {Laptopy.Count} laptopów.";
+        }
 
+        private void ClearFilters()
+        {
+            FilterMarka = string.Empty;
+            FilterModel = string.Empty;
+            StatusMessage = "Filtry wyczyszczone.";
         }
 
         // Logika filtrowania używana przez ICollectionView
@@ -292,14 +347,14 @@ namespace MagazynLaptopowWPF.ViewModels
             if (item is Laptop laptop)
             {
                 bool markaMatch = string.IsNullOrWhiteSpace(FilterMarka) ||
-                                 (laptop.Marka != null && laptop.Marka.Contains(FilterMarka, StringComparison.OrdinalIgnoreCase)); // Ignoruj wielkość liter
+                                 (laptop.Marka != null && laptop.Marka.Contains(FilterMarka, StringComparison.OrdinalIgnoreCase));
 
                 bool modelMatch = string.IsNullOrWhiteSpace(FilterModel) ||
                                  (laptop.Model != null && laptop.Model.Contains(FilterModel, StringComparison.OrdinalIgnoreCase));
 
-                return markaMatch && modelMatch; // Laptop pasuje, jeśli pasuje do obu filtrów (lub filtry są puste)
+                return markaMatch && modelMatch;
             }
-            return false; // Nieznany typ obiektu
+            return false;
         }
 
         // --- Import / Eksport ---
@@ -314,60 +369,60 @@ namespace MagazynLaptopowWPF.ViewModels
 
             if (saveFileDialog.ShowDialog() == true)
             {
+                IsBusy = true;
                 StatusMessage = "Eksportowanie danych...";
                 try
                 {
-                    // Pobierz dane do eksportu (mogą być filtrowane lub wszystkie)
-                    // W tym przykładzie eksportujemy WSZYSTKIE dane z bazy
-                    // Jeśli chcesz eksportować tylko widoczne (przefiltrowane), użyj LaptopyView
-                    var dataToExport = await _laptopRepository.GetAllLaptopsAsync();
+                    // Zrobić widok filtrowany
+                    var dataToExport = LaptopyView.Cast<Laptop>().ToList();
 
-                    // Użyj serwisu CSV do zapisu (wymaga implementacji CsvService)
-                    // await _csvService.ExportLaptopsAsync(dataToExport, saveFileDialog.FileName);
-
-                    // --- Prosta implementacja zapisu CSV bez CsvHelper ---
-                    using (var writer = new System.IO.StreamWriter(saveFileDialog.FileName))
+                    using (var writer = new StreamWriter(saveFileDialog.FileName, false, System.Text.Encoding.UTF8))
                     {
                         // Nagłówek
                         await writer.WriteLineAsync("Id;Marka;Model;SystemOperacyjny;RozmiarEkranu;Ilosc");
+
                         // Dane
                         foreach (var laptop in dataToExport)
                         {
-                            // Użyj średnika jako separatora, obsłuż potencjalne nulle i formatowanie
                             var line = string.Join(";",
                                 laptop.Id,
                                 EscapeCsvField(laptop.Marka),
                                 EscapeCsvField(laptop.Model),
-                                EscapeCsvField(laptop.SystemOperacyjny ?? ""), // Zastąp null pustym stringiem
-                                laptop.RozmiarEkranu?.ToString(System.Globalization.CultureInfo.InvariantCulture) ?? "", // Formatuj liczbę z kropką
+                                EscapeCsvField(laptop.SystemOperacyjny ?? ""),
+                                laptop.RozmiarEkranu?.ToString(System.Globalization.CultureInfo.InvariantCulture) ?? "",
                                 laptop.Ilosc
                             );
                             await writer.WriteLineAsync(line);
                         }
                     }
-                    // --- Koniec prostej implementacji ---
 
-                    StatusMessage = $"Dane wyeksportowane do: {saveFileDialog.FileName}";
+                    StatusMessage = $"Dane wyeksportowane do: {Path.GetFileName(saveFileDialog.FileName)}";
+                    MessageBox.Show($"Dane zostały wyeksportowane do pliku:\n{saveFileDialog.FileName}",
+                                   "Eksport zakończony", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
                 catch (Exception ex)
                 {
                     StatusMessage = $"Błąd eksportu: {ex.Message}";
-                    MessageBox.Show($"Wystąpił błąd podczas eksportu danych:\n{ex.Message}", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show($"Wystąpił błąd podczas eksportu danych:\n{ex.Message}",
+                                   "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                finally
+                {
+                    IsBusy = false;
                 }
             }
         }
 
-        // Pomocnicza metoda do obsługi znaków specjalnych w CSV (np. średniki w tekście)
         private string EscapeCsvField(string field)
         {
+            if (string.IsNullOrEmpty(field)) return string.Empty;
+
             if (field.Contains(';') || field.Contains('"') || field.Contains('\n'))
             {
-                // Otocz pole cudzysłowami i podwój istniejące cudzysłowy
                 return $"\"{field.Replace("\"", "\"\"")}\"";
             }
             return field;
         }
-
 
         private async Task ImportDataAsync()
         {
@@ -379,103 +434,124 @@ namespace MagazynLaptopowWPF.ViewModels
 
             if (openFileDialog.ShowDialog() == true)
             {
+                IsBusy = true;
                 StatusMessage = "Importowanie danych...";
                 try
                 {
-                    // Użyj serwisu CSV do odczytu (wymaga implementacji CsvService)
-                    // var importedLaptops = await _csvService.ImportLaptopsAsync(openFileDialog.FileName);
-
-                    // --- Prosta implementacja odczytu CSV bez CsvHelper ---
                     var importedLaptops = new List<Laptop>();
-                    using (var reader = new System.IO.StreamReader(openFileDialog.FileName))
+                    using (var reader = new StreamReader(openFileDialog.FileName, System.Text.Encoding.UTF8))
                     {
-                        string? headerLine = await reader.ReadLineAsync(); // Odczytaj i zignoruj nagłówek (lub zweryfikuj)
+                        string? headerLine = await reader.ReadLineAsync();
                         if (headerLine == null) throw new Exception("Plik CSV jest pusty lub nieprawidłowy.");
 
                         string? line;
-                        int lineNumber = 1; // Do śledzenia błędów
+                        int lineNumber = 1;
+                        int successCount = 0;
+                        int errorCount = 0;
+
                         while ((line = await reader.ReadLineAsync()) != null)
                         {
                             lineNumber++;
-                            var fields = line.Split(';'); // Rozdziel po średniku (prosty przypadek)
-                                                          // UWAGA: To nie obsłuży poprawnie średników wewnątrz pól otoczonych cudzysłowami!
-                                                          // Dla poprawnej obsługi potrzebny jest parser CSV jak CsvHelper.
+                            if (string.IsNullOrWhiteSpace(line)) continue;
 
-                            if (fields.Length >= 5) // Oczekujemy co najmniej 5 pól (bez ID)
+                            try
                             {
-                                try
+                                var fields = ParseCsvLine(line);
+
+                                if (fields.Length >= 5)
                                 {
                                     var laptop = new Laptop
                                     {
-                                        // ID zostanie nadane przez bazę danych przy dodawaniu
-                                        Marka = fields[1].Trim(), // Usuń białe znaki
+                                        Marka = fields[1].Trim(),
                                         Model = fields[2].Trim(),
                                         SystemOperacyjny = string.IsNullOrWhiteSpace(fields[3]) ? null : fields[3].Trim(),
-                                        RozmiarEkranu = double.TryParse(fields[4].Trim(), System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out double size) ? size : (double?)null,
+                                        RozmiarEkranu = double.TryParse(fields[4].Trim(), System.Globalization.NumberStyles.Any,
+                                                        System.Globalization.CultureInfo.InvariantCulture, out double size) ? size : (double?)null,
                                         Ilosc = int.TryParse(fields[5].Trim(), out int qty) ? qty : 0
                                     };
-                                    // Podstawowa walidacja
+
                                     if (!string.IsNullOrWhiteSpace(laptop.Marka) && !string.IsNullOrWhiteSpace(laptop.Model))
                                     {
                                         importedLaptops.Add(laptop);
+                                        successCount++;
                                     }
                                     else
                                     {
-                                        Console.WriteLine($"Pominięto wiersz {lineNumber}: Brak marki lub modelu.");
-                                        // Można logować błędy bardziej szczegółowo
+                                        errorCount++;
                                     }
                                 }
-                                catch (Exception ex)
+                                else
                                 {
-                                    Console.WriteLine($"Błąd przetwarzania wiersza {lineNumber}: {ex.Message}");
-                                    // Można logować błędy
+                                    errorCount++;
                                 }
                             }
+                            catch
+                            {
+                                errorCount++;
+                            }
                         }
-                    }
-                    // --- Koniec prostej implementacji ---
 
+                        StatusMessage = $"Zaimportowano {successCount} laptopów. Błędnych wierszy: {errorCount}.";
+                    }
 
                     if (importedLaptops.Any())
                     {
-                        // Opcjonalnie: Zapytaj użytkownika, czy dodać czy zastąpić istniejące dane
                         var confirmResult = MessageBox.Show($"Zaimportowano {importedLaptops.Count} laptopów. Czy chcesz dodać je do bazy danych?",
-                                                            "Potwierdzenie importu", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                                                          "Potwierdzenie importu", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
                         if (confirmResult == MessageBoxResult.Yes)
                         {
-                            int addedCount = 0;
                             foreach (var laptop in importedLaptops)
                             {
-                                // Można dodać logikę sprawdzania duplikatów przed dodaniem
                                 await _laptopRepository.AddLaptopAsync(laptop);
-                                addedCount++;
                             }
-                            StatusMessage = $"Zaimportowano i dodano {addedCount} laptopów.";
+
                             await LoadDataAsync(); // Odśwież widok
+                            StatusMessage = $"Dodano {importedLaptops.Count} laptopów do bazy danych.";
                         }
-                        else
-                        {
-                            StatusMessage = "Import anulowany.";
-                        }
-                    }
-                    else
-                    {
-                        StatusMessage = "Nie znaleziono prawidłowych danych do importu w pliku.";
                     }
                 }
                 catch (Exception ex)
                 {
                     StatusMessage = $"Błąd importu: {ex.Message}";
-                    MessageBox.Show($"Wystąpił błąd podczas importu danych:\n{ex.Message}", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show($"Wystąpił błąd podczas importu danych:\n{ex.Message}",
+                                   "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                finally
+                {
+                    IsBusy = false;
                 }
             }
         }
 
+        // Lepsza implementacja parsowania CSV uwzględniająca pola w cudzysłowach
+        private string[] ParseCsvLine(string line)
+        {
+            List<string> fields = new List<string>();
+            bool inQuotes = false;
+            int fieldStart = 0;
+
+            for (int i = 0; i < line.Length; i++)
+            {
+                if (line[i] == '"')
+                {
+                    inQuotes = !inQuotes;
+                }
+                else if (line[i] == ';' && !inQuotes)
+                {
+                    fields.Add(line.Substring(fieldStart, i - fieldStart).Trim('"'));
+                    fieldStart = i + 1;
+                }
+            }
+
+            // Dodaj ostatnie pole
+            fields.Add(line.Substring(fieldStart).Trim('"'));
+
+            return fields.ToArray();
+        }
     }
 
-    // --- Prosta implementacja ICommand (RelayCommand) ---
-    // Można użyć gotowych bibliotek MVVM (np. CommunityToolkit.Mvvm) dla bardziej rozbudowanych wersji
+    // Prosta implementacja ICommand (RelayCommand)
     public class RelayCommand : ICommand
     {
         private readonly Action<object?> _execute;
@@ -503,7 +579,6 @@ namespace MagazynLaptopowWPF.ViewModels
             _execute(parameter);
         }
 
-        // Metoda do ręcznego wywołania sprawdzenia CanExecute
         public void RaiseCanExecuteChanged()
         {
             CommandManager.InvalidateRequerySuggested();

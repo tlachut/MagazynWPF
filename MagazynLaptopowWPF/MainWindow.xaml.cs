@@ -1,33 +1,53 @@
-using MahApps.Metro.Controls;
-using MagazynLaptopowWPF.ViewModels; // Potrzebne dla DataContext
 using System.Windows;
-using System.Windows.Input; // Potrzebne dla CommandBinding
+using System.Windows.Input;
+using MagazynLaptopowWPF.ViewModels;
 
 namespace MagazynLaptopowWPF
 {
-    public partial class MainWindow : MetroWindow
+    /// <summary>
+    /// Interaction logic for MainWindow.xaml
+    /// </summary>
+    public partial class MainWindow
     {
-        // Pobierz ViewModel dla łatwego dostępu w code-behind (jeśli potrzebne)
         private MainViewModel? ViewModel => DataContext as MainViewModel;
 
         public MainWindow()
         {
             InitializeComponent();
-            // DataContext jest już ustawiony w XAML
+
+            // Ustaw DataContext w kodzie zamiast w XAML
+            DataContext = new MainViewModel();
+
+            // Obsługa klawisza F5 do odświeżania danych
+            KeyDown += (s, e) =>
+            {
+                if (e.Key == Key.F5 && ViewModel != null)
+                {
+                    ViewModel.LoadDataCommand.Execute(null);
+                }
+            };
+
+            // Obsługa klawisza Delete
+            KeyDown += (s, e) =>
+            {
+                if (e.Key == Key.Delete && ViewModel != null && ViewModel.SelectedLaptop != null)
+                {
+                    ViewModel.DeleteLaptopCommand.Execute(null);
+                }
+            };
         }
 
-        // Obsługa CanExecute dla komendy Delete z DataGrid
         private void DeleteCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
-            // Sprawdź, czy komenda usuwania z ViewModelu może być wykonana
-            e.CanExecute = ViewModel?.DeleteLaptopCommand.CanExecute(null) ?? false;
+            e.CanExecute = ViewModel != null && ViewModel.SelectedLaptop != null;
         }
 
-        // Obsługa Executed dla komendy Delete z DataGrid
         private void DeleteCommand_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            // Wywołaj komendę usuwania z ViewModelu
-            ViewModel?.DeleteLaptopCommand.Execute(null);
+            if (ViewModel != null)
+            {
+                ViewModel.DeleteLaptopCommand.Execute(null);
+            }
         }
     }
 }

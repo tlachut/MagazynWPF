@@ -23,17 +23,23 @@ namespace MagazynLaptopowWPF.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("Ilosc")
-                        .HasColumnType("INTEGER");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER")
+                        .HasDefaultValue(0);
 
                     b.Property<string>("Marka")
                         .IsRequired()
+                        .ValueGeneratedOnAdd()
                         .HasMaxLength(100)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("TEXT")
+                        .HasDefaultValue("");
 
                     b.Property<string>("Model")
                         .IsRequired()
+                        .ValueGeneratedOnAdd()
                         .HasMaxLength(100)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("TEXT")
+                        .HasDefaultValue("");
 
                     b.Property<double?>("RozmiarEkranu")
                         .HasColumnType("REAL");

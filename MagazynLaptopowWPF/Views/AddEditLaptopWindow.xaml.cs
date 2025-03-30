@@ -1,29 +1,49 @@
-﻿using System.Windows;
-// Dodaj using do ViewModelu, jeśli go używasz w code-behind
+using System.Windows;
 using MagazynLaptopowWPF.ViewModels;
 
-namespace MagazynLaptopowWPF.Views // <<< UPEWNIJ SIĘ, ŻE JEST TA PRZESTRZEŃ NAZW
+namespace MagazynLaptopowWPF.Views
 {
     /// <summary>
     /// Logika interakcji dla klasy AddEditLaptopWindow.xaml
     /// </summary>
-    public partial class AddEditLaptopWindow : Window
+    public partial class AddEditLaptopWindow
     {
-        // Kod konstruktora i metod (np. z poprzedniej odpowiedzi)
-        private AddEditLaptopViewModel _viewModel;
+        private readonly AddEditLaptopViewModel _viewModel;
 
         public AddEditLaptopWindow(AddEditLaptopViewModel viewModel)
         {
             InitializeComponent();
             _viewModel = viewModel;
             DataContext = _viewModel;
+
+            // Zapobiega zamknięciu okna, gdy naciśnięty jest Enter w TextBoxie
+            PreviewKeyDown += (s, e) =>
+            {
+                if (e.Key == System.Windows.Input.Key.Enter && !(e.OriginalSource is System.Windows.Controls.Button))
+                {
+                    // Jeśli naciśnięto Enter nie w przycisku, zablokuj domyślną akcję
+                    e.Handled = true;
+
+                    // Opcjonalnie: jeśli wszystkie dane są poprawne, zamknij okno dialogowe z rezultatem true
+                    if (_viewModel.IsValid)
+                    {
+                        DialogResult = true;
+                    }
+                }
+            };
         }
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
-            this.DialogResult = true;
+            if (_viewModel.IsValid)
+            {
+                DialogResult = true;
+            }
+            else
+            {
+                MessageBox.Show("Formularz zawiera błędy. Proszę poprawić zaznaczone pola.",
+                                "Błędy walidacji", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
         }
-
-        // Anuluj jest obsługiwany przez IsCancel="True" w XAML
     }
 }
