@@ -342,24 +342,28 @@
             </DataGrid.ColumnHeaderStyle>
         </DataGrid>
 
-        <!-- Pasek statusu - poprawiony styl -->
-        <StatusBar Grid.Row="3" VerticalAlignment="Bottom" Background="{DynamicResource MahApps.Brushes.Accent}">
-            <StatusBarItem>
-                <TextBlock Text="{Binding StatusMessage}" Foreground="White" Padding="8,0"/>
-            </StatusBarItem>
-            <StatusBarItem HorizontalAlignment="Right">
-                <!-- Wskaźnik zajętości -->
-                <mah:ProgressRing IsActive="{Binding IsBusy}" Width="18" Height="18" Foreground="White" Margin="0,0,5,0"/>
-            </StatusBarItem>
-            <StatusBarItem HorizontalAlignment="Right">
-                <TextBlock Foreground="White" Padding="8,0">
-                     <Run Text="Widocznych:"/>
-                     <Run Text="{Binding LaptopyView.Count, Mode=OneWay}"/>
-                     <Run Text="/"/>
-                     <Run Text="{Binding Laptopy.Count, Mode=OneWay}"/>
-                </TextBlock>
-            </StatusBarItem>
-        </StatusBar>
+        <!-- Pasek statusu - dodano wyświetlanie użytkownika -->
+		<StatusBar Grid.Row="3" VerticalAlignment="Bottom" Background="{DynamicResource MahApps.Brushes.Accent}">
+			<StatusBarItem>
+				<!-- Dodany TextBlock dla zalogowanego użytkownika -->
+				<TextBlock Text="{Binding LoggedInUser, StringFormat='Zalogowany jako: {0}'}"
+                           Foreground="White" Padding="8,0" Margin="0,0,15,0"/>
+			</StatusBarItem>
+			<StatusBarItem>
+				<TextBlock Text="{Binding StatusMessage}" Foreground="White" Padding="8,0"/>
+			</StatusBarItem>
+			<StatusBarItem HorizontalAlignment="Right">
+				<mah:ProgressRing IsActive="{Binding IsBusy}" Width="18" Height="18" Foreground="White" Margin="0,0,5,0"/>
+			</StatusBarItem>
+			<StatusBarItem HorizontalAlignment="Right">
+				<TextBlock Foreground="White" Padding="8,0">
+					<Run Text="Widocznych:"/>
+					<Run Text="{Binding LaptopyView.Count, Mode=OneWay}"/>
+					<Run Text="/"/>
+					<Run Text="{Binding Laptopy.Count, Mode=OneWay}"/>
+				</TextBlock>
+			</StatusBarItem>
+		</StatusBar>
 
     </Grid>
 </mah:MetroWindow>

@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("MagazynLaptopowWPF")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+92ebea55c66224f23358ca62310261ed0a923306")]
 [assembly: System.Reflection.AssemblyProductAttribute("MagazynLaptopowWPF")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MagazynLaptopowWPF")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -1,102 +1,102 @@
 using System;
-using System.Configuration;
-using System.Data;
 using System.IO;
 using System.Linq;
 using System.Windows;
 using MagazynLaptopowWPF.Models;
+using MagazynLaptopowWPF.Views; // Dodaj using dla LoginWindow
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
+using System.Threading.Tasks;
 
-namespace MagazynLaptopowWPF;
-
-/// <summary>
-/// Interaction logic for App.xaml
-/// </summary>
-public partial class App : Application
+namespace MagazynLaptopowWPF
 {
-    // Dodaj właściwość DbContext na poziomie aplikacji, aby zapewnić jeden kontekst bazy danych
-    public static AppDbContext? DbContext { get; private set; }
-
-    // Dodaj właściwość do przechowywania ścieżki bazy danych, aby była dostępna dla całej aplikacji
-    public static string DbPath { get; private set; } = Path.Combine(Directory.GetCurrentDirectory(), "MagazynDb.sqlite");
-
-    protected override async void OnStartup(StartupEventArgs e)
+    public partial class App : Application
     {
-        base.OnStartup(e);
+        // Kontekst bazy danych dostępny globalnie (ale inicjowany raz)
+        public static AppDbContext? DbContext { get; private set; }
+        // Ścieżka do pliku bazy danych
+        public static string DbPath { get; private set; } = Path.Combine(Directory.GetCurrentDirectory(), "MagazynDb.sqlite");
 
-        // Sprawdź, czy plik bazy danych istnieje i ma odpowiednie uprawnienia
-        try
+        // Metoda uruchamiana przy starcie aplikacji
+        protected override async void OnStartup(StartupEventArgs e)
         {
-            // Upewnij się, że katalog docelowy istnieje
-            string? directory = Path.GetDirectoryName(DbPath);
-            if (!string.IsNullOrEmpty(directory) && !Directory.Exists(directory))
+            base.OnStartup(e);
+
+            // Krok 1: Inicjalizacja bazy danych
+            bool dbInitialized = await InitializeDatabaseAsync();
+            if (!dbInitialized)
             {
-                Directory.CreateDirectory(directory);
+                // Jeśli inicjalizacja się nie powiodła, zakończ aplikację
+                Current.Shutdown(-1); // Zamknij z kodem błędu
+                return;
             }
 
-            // Usuń istniejący plik bazy danych
-            if (File.Exists(DbPath))
+            // Krok 2: Uruchomienie okna logowania jako pierwszego
+            var loginWindow = new LoginWindow();
+            // Ustawienie MainWindow aplikacji na okno logowania, aby było ono "główne"
+            // na czas procesu logowania. Po udanym logowaniu zostanie podmienione.
+            this.MainWindow = loginWindow;
+            loginWindow.Show();
+            // Dalsza logika (otwarcie MainWindow po udanym logowaniu)
+            // jest teraz realizowana wewnątrz LoginWindow i LoginViewModel.
+        }
+
+        // Prywatna metoda do inicjalizacji połączenia z bazą danych i jej utworzenia/migracji
+        private async Task<bool> InitializeDatabaseAsync()
+        {
+            try
             {
-                try
+                // Upewnij się, że katalog dla pliku bazy danych istnieje
+                string? directory = Path.GetDirectoryName(DbPath);
+                if (!string.IsNullOrEmpty(directory) && !Directory.Exists(directory))
                 {
-                    File.Delete(DbPath);
+                    Directory.CreateDirectory(directory);
                 }
-                catch (Exception fileEx)
+
+                // Konfiguracja opcji dla Entity Framework Core i SQLite
+                var optionsBuilder = new DbContextOptionsBuilder<AppDbContext>();
+                optionsBuilder
+                    .UseSqlite($"Data Source={DbPath}") // Ustawienie źródła danych
+                    .ConfigureWarnings(warnings => warnings.Ignore(RelationalEventId.PendingModelChangesWarning)) // Ignoruj niektóre ostrzeżenia EF
+                    .EnableSensitiveDataLogging(); // Włącz logowanie szczegółów (przydatne przy debugowaniu)
+
+                // Utworzenie instancji kontekstu bazy danych
+                DbContext = new AppDbContext(optionsBuilder.Options);
+
+                // Upewnij się, że baza danych istnieje (utwórz ją lub zastosuj migracje, jeśli ich używasz)
+                // W tym przypadku EnsureCreated() utworzy bazę, jeśli nie istnieje, na podstawie modelu.
+                await DbContext.Database.EnsureCreatedAsync();
+
+                // Opcjonalnie: Dodaj przykładowe dane, jeśli tabela Laptopy jest pusta
+                // To jest przydatne przy pierwszym uruchomieniu lub czystej bazie.
+                if (!await DbContext.Laptopy.AnyAsync())
                 {
-                    MessageBox.Show($"Nie można usunąć pliku bazy danych: {fileEx.Message}",
-                                    "Ostrzeżenie", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    DbContext.Laptopy.AddRange(
+                       new Laptop { Marka = "Dell", Model = "XPS 13", SystemOperacyjny = "Windows 11", RozmiarEkranu = 13.4, Ilosc = 5, KodKreskowy = "DELLXPS13" },
+                       new Laptop { Marka = "Apple", Model = "MacBook Air M2", SystemOperacyjny = "macOS Sonoma", RozmiarEkranu = 13.6, Ilosc = 3, KodKreskowy = "APPLEM2AIR" },
+                       new Laptop { Marka = "Lenovo", Model = "ThinkPad X1 Carbon", SystemOperacyjny = "Windows 11 Pro", RozmiarEkranu = 14.0, Ilosc = 7, KodKreskowy = "LENX1CAR" },
+                       new Laptop { Marka = "HP", Model = "Spectre x360", SystemOperacyjny = "Windows 11", RozmiarEkranu = 15.6, Ilosc = 2, KodKreskowy = "HPSPECTRE" },
+                       new Laptop { Marka = "Asus", Model = "ZenBook 14", SystemOperacyjny = "Windows 12", RozmiarEkranu = 13.6, Ilosc = 12, KodKreskowy = "ASUSZEN14" }
+                   );
+                    await DbContext.SaveChangesAsync(); // Zapisz dane w bazie
                 }
+                return true; // Inicjalizacja pomyślna
             }
-
-            // Utwórz kontekst bazy danych z odpowiednią ścieżką i konfiguracją
-            var optionsBuilder = new DbContextOptionsBuilder<AppDbContext>();
-            optionsBuilder
-                .UseSqlite($"Data Source={DbPath}")
-                .ConfigureWarnings(warnings =>
-                {
-                    warnings.Ignore(RelationalEventId.PendingModelChangesWarning);
-                })
-                .EnableSensitiveDataLogging(); // Włącz logowanie szczegółów dla lepszej diagnostyki
-
-            DbContext = new AppDbContext(optionsBuilder.Options);
-
-            // Utwórz bazę danych i zastosuj migracje
-            await DbContext.Database.EnsureCreatedAsync();
-
-            // Dodaj przykładowe dane, jeśli tabela jest pusta
-            if (!await DbContext.Laptopy.AnyAsync())
+            catch (Exception ex)
             {
-                DbContext.Laptopy.AddRange(
-                    new Laptop { Marka = "Dell", Model = "XPS 13", SystemOperacyjny = "Windows 11", RozmiarEkranu = 13.4, Ilosc = 5 },
-                    new Laptop { Marka = "Apple", Model = "MacBook Air M2", SystemOperacyjny = "macOS Sonoma", RozmiarEkranu = 13.6, Ilosc = 3 },
-                    new Laptop { Marka = "Lenovo", Model = "ThinkPad X1 Carbon", SystemOperacyjny = "Windows 11 Pro", RozmiarEkranu = 14.0, Ilosc = 7 },
-                    new Laptop { Marka = "HP", Model = "Spectre x360", SystemOperacyjny = "Windows 11", RozmiarEkranu = 15.6, Ilosc = 2 },
-                    new Laptop { Marka = "Asus", Model = "ZenBook 14", SystemOperacyjny = "Windows 12", RozmiarEkranu = 13.6, Ilosc = 12 }
-                );
-                await DbContext.SaveChangesAsync();
+                // W przypadku błędu, zapisz go do pliku i pokaż użytkownikowi komunikat
+                File.WriteAllText("db_error.log", $"Błąd inicjalizacji bazy danych: {ex.Message}\n\nStack Trace:\n{ex.StackTrace}");
+                MessageBox.Show($"Wystąpił błąd podczas inicjalizacji bazy danych: {ex.Message}\n\nSzczegóły zapisano w pliku db_error.log\n\nAplikacja zostanie zamknięta.", "Błąd krytyczny", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false; // Inicjalizacja nieudana
             }
         }
-        catch (Exception ex)
+
+        // Metoda wywoływana przy zamykaniu aplikacji
+        protected override void OnExit(ExitEventArgs e)
         {
-            // Zapisz szczegółowy komunikat błędu do pliku
-            File.WriteAllText("db_error.log",
-                $"Błąd inicjalizacji bazy danych: {ex.Message}\n\nStack Trace:\n{ex.StackTrace}");
-
-            MessageBox.Show($"Wystąpił błąd podczas inicjalizacji bazy danych: {ex.Message}\n\n" +
-                           $"Szczegóły zapisano w pliku db_error.log\n\n" +
-                           $"Aplikacja zostanie zamknięta.",
-                           "Błąd krytyczny", MessageBoxButton.OK, MessageBoxImage.Error);
-
-            // Zamknij aplikację w przypadku krytycznego błędu z bazą danych
-            Current.Shutdown();
+            // Zwolnij zasoby kontekstu bazy danych, aby uniknąć wycieków
+            DbContext?.Dispose();
+            base.OnExit(e);
         }
-    }
-
-    protected override void OnExit(ExitEventArgs e)
-    {
-        // Zamknij kontekst bazy danych przy zamykaniu aplikacji
-        DbContext?.Dispose();
-        base.OnExit(e);
     }
 }

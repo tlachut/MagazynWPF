@@ -21,7 +21,16 @@ namespace MagazynLaptopowWPF.ViewModels
         private readonly ILaptopRepository _laptopRepository;
         private readonly AppDbContext _dbContext;
 
+        // Poprawiona deklaracja - nullable string
+        private string? _loggedInUser;
+        public string? LoggedInUser
+        {
+            get => _loggedInUser;
+            set => SetProperty(ref _loggedInUser, value);
+        }
+
         private ObservableCollection<Laptop> _laptopy;
+
         public ObservableCollection<Laptop> Laptopy
         {
             get => _laptopy;
@@ -90,8 +99,8 @@ namespace MagazynLaptopowWPF.ViewModels
             }
         }
 
-        private string _statusMessage = "Gotowy";
-        public string StatusMessage
+        private string? _statusMessage = "Oczekiwanie na dane...";
+        public string? StatusMessage
         {
             get => _statusMessage;
             set => SetProperty(ref _statusMessage, value);
@@ -140,13 +149,15 @@ namespace MagazynLaptopowWPF.ViewModels
         public ICommand SearchBarcodeCommand { get; }
 
         // Konstruktor
-        public MainViewModel()
+        public MainViewModel(string? loggedInUser) // Zmieniono na nullable
         {
+            LoggedInUser = loggedInUser;
+
             _laptopy = new ObservableCollection<Laptop>();
             _laptopyView = CollectionViewSource.GetDefaultView(_laptopy);
 
-            // Korzystaj z DbContext zainicjowanego w App.xaml.cs zamiast tworzyć nowy
-            _dbContext = App.DbContext ?? new AppDbContext();
+            // Użyj operatora !, aby potwierdzić, że DbContext nie będzie null
+            _dbContext = App.DbContext!; // Dodano !
             _laptopRepository = new LaptopRepository(_dbContext);
 
             // Definicje komend
@@ -154,31 +165,28 @@ namespace MagazynLaptopowWPF.ViewModels
             AddLaptopCommand = new RelayCommand(_ => AddLaptop(), _ => !IsBusy);
             EditLaptopCommand = new RelayCommand(_ => EditLaptop(), _ => CanEditOrDeleteLaptop() && !IsBusy);
             DeleteLaptopCommand = new RelayCommand(async _ => await DeleteLaptopAsync(), _ => CanEditOrDeleteLaptop() && !IsBusy);
-            ExportCommand = new RelayCommand(async _ => await ExportDataAsync(), _ => Laptopy.Count > 0 && !IsBusy);
+            ExportCommand = new RelayCommand(async _ => await ExportDataAsync(), _ => Laptopy != null && Laptopy.Count > 0 && !IsBusy);
             ImportCommand = new RelayCommand(async _ => await ImportDataAsync(), _ => !IsBusy);
             ClearFiltersCommand = new RelayCommand(_ => ClearFilters(), _ => !string.IsNullOrEmpty(FilterKodKreskowy) || !string.IsNullOrEmpty(FilterMarka) || !string.IsNullOrEmpty(FilterModel));
             ToggleQuickModeCommand = new RelayCommand(_ => ToggleQuickMode(), _ => !IsBusy);
             SearchBarcodeCommand = new RelayCommand(_ => SearchByBarcode(), _ => !string.IsNullOrEmpty(FilterKodKreskowy) && !IsBusy);
 
-            // Konfiguracja sortowania
             _laptopyView.SortDescriptions.Add(new SortDescription("Marka", ListSortDirection.Ascending));
             _laptopyView.SortDescriptions.Add(new SortDescription("Model", ListSortDirection.Ascending));
-
-            // Konfiguracja filtrowania
             _laptopyView.Filter = FilterLogic;
 
-            // Ładuj dane w osobnym wątku, aby uniknąć blokowania UI po inicjalizacji
             Application.Current.Dispatcher.InvokeAsync(async () =>
             {
                 try
                 {
                     await LoadDataAsync();
+                    // Ustaw status po załadowaniu i zalogowaniu
+                    StatusMessage = $"Zalogowany jako: {LoggedInUser ?? "Nieznany"}. Gotowy."; // Dodano ?? "Nieznany" na wszelki wypadek
                 }
                 catch (Exception ex)
                 {
-                    // Logowanie wyjątku, ale nie pokazuj MessageBox w konstruktorze
                     Console.WriteLine($"Błąd ładowania danych: {ex.Message}");
-                    StatusMessage = "Nie udało się załadować danych. Kliknij 'Odśwież', aby spróbować ponownie.";
+                    StatusMessage = $"Zalogowany jako: {LoggedInUser ?? "Nieznany"}. Nie udało się załadować danych.";
                 }
             });
         }
@@ -592,7 +600,7 @@ namespace MagazynLaptopowWPF.ViewModels
                 try
                 {
                     // Zrobić widok filtrowany
-                    var dataToExport = LaptopyView.Cast<Laptop>().ToList();
+                    var dataToExport = LaptopyView?.Cast<Laptop>().ToList() ?? new List<Laptop>(); // Użyj ?. i ??
 
                     using (var writer = new StreamWriter(saveFileDialog.FileName, false, System.Text.Encoding.UTF8))
                     {

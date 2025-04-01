@@ -1,8 +1,6 @@
-// "MainWindow.xaml.cs"
-
 using System.Windows;
 using System.Windows.Input;
-using MagazynLaptopowWPF.ViewModels;
+using MagazynLaptopowWPF.ViewModels; // Upewnij się, że ten using jest
 
 namespace MagazynLaptopowWPF
 {
@@ -11,30 +9,32 @@ namespace MagazynLaptopowWPF
     /// </summary>
     public partial class MainWindow
     {
-        private MainViewModel? ViewModel => DataContext as MainViewModel;
+        // Usuwamy pole ViewModel - będziemy pobierać DataContext bezpośrednio
 
         public MainWindow()
         {
             InitializeComponent();
 
-            // Ustaw DataContext w kodzie zamiast w XAML
-            DataContext = new MainViewModel();
+            // NIE ustawiamy DataContext tutaj - zostanie ustawiony w App.xaml.cs
+            // DataContext = new MainViewModel(); // USUNIĘTE
 
             // Obsługa klawisza F5 do odświeżania danych
             KeyDown += (s, e) =>
             {
-                if (e.Key == Key.F5 && ViewModel != null)
+                var viewModel = GetViewModel(); // Pobierz ViewModel dynamicznie
+                if (e.Key == Key.F5 && viewModel != null)
                 {
-                    ViewModel.LoadDataCommand.Execute(null);
+                    viewModel.LoadDataCommand.Execute(null);
                 }
             };
 
             // Obsługa klawisza Delete
             KeyDown += (s, e) =>
             {
-                if (e.Key == Key.Delete && ViewModel != null && ViewModel.SelectedLaptop != null)
+                var viewModel = GetViewModel(); // Pobierz ViewModel dynamicznie
+                if (e.Key == Key.Delete && viewModel != null && viewModel.SelectedLaptop != null)
                 {
-                    ViewModel.DeleteLaptopCommand.Execute(null);
+                    viewModel.DeleteLaptopCommand.Execute(null);
                 }
             };
 
@@ -47,7 +47,8 @@ namespace MagazynLaptopowWPF
             // Obsługa globalnej reakcji na klawisze
             PreviewKeyDown += (s, e) =>
             {
-                if (ViewModel != null && ViewModel.IsQuickModeActive)
+                var viewModel = GetViewModel(); // Pobierz ViewModel dynamicznie
+                if (viewModel != null && viewModel.IsQuickModeActive)
                 {
                     // W trybie szybkim, przechwytuj każde naciśnięcie klawisza,
                     // jeśli fokus nie jest już w polu skanowania
@@ -69,21 +70,25 @@ namespace MagazynLaptopowWPF
             };
         }
 
+        // Metoda pomocnicza do pobierania ViewModel z DataContext
+        private MainViewModel? GetViewModel() => DataContext as MainViewModel;
+
         private void FilterKodKreskowy_KeyDown(object sender, KeyEventArgs e)
         {
+            var viewModel = GetViewModel(); // Pobierz ViewModel dynamicznie
             // Obsługa klawisza Enter w polu filtrowania kodu kreskowego
-            if (e.Key == Key.Enter && ViewModel != null)
+            if (e.Key == Key.Enter && viewModel != null)
             {
                 // W trybie szybkim, Enter oznacza zatwierdzenie kodu i zwiększenie liczby sztuk
-                if (ViewModel.IsQuickModeActive)
+                if (viewModel.IsQuickModeActive)
                 {
-                    ViewModel.ProcessBarcodeInQuickMode();
+                    viewModel.ProcessBarcodeInQuickMode();
                     e.Handled = true;
                 }
                 // W normalnym trybie, Enter powoduje wyszukiwanie
                 else
                 {
-                    ViewModel.SearchByBarcode();
+                    viewModel.SearchByBarcode();
                     e.Handled = true;
                 }
             }
@@ -91,14 +96,16 @@ namespace MagazynLaptopowWPF
 
         private void DeleteCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
-            e.CanExecute = ViewModel != null && ViewModel.SelectedLaptop != null;
+            var viewModel = GetViewModel(); // Pobierz ViewModel dynamicznie
+            e.CanExecute = viewModel != null && viewModel.SelectedLaptop != null;
         }
 
         private void DeleteCommand_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            if (ViewModel != null)
+            var viewModel = GetViewModel(); // Pobierz ViewModel dynamicznie
+            if (viewModel != null)
             {
-                ViewModel.DeleteLaptopCommand.Execute(null);
+                viewModel.DeleteLaptopCommand.Execute(null);
             }
         }
     }
