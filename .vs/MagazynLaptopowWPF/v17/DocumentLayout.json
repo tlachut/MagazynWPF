@@ -3,20 +3,52 @@
   "WorkspaceRootPath": "C:\\Users\\tomas\\Downloads\\MagazynWPF-main\\MagazynWPF-main\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{E39F0CFE-3180-403C-A156-3506DA53A807}|MagazynLaptopowWPF\\MagazynLaptopowWPF.csproj|c:\\users\\tomas\\downloads\\magazynwpf-main\\magazynwpf-main\\magazynlaptopowwpf\\app.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E39F0CFE-3180-403C-A156-3506DA53A807}|MagazynLaptopowWPF\\MagazynLaptopowWPF.csproj|solutionrelative:magazynlaptopowwpf\\app.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{E39F0CFE-3180-403C-A156-3506DA53A807}|MagazynLaptopowWPF\\MagazynLaptopowWPF.csproj|c:\\users\\tomas\\downloads\\magazynwpf-main\\magazynwpf-main\\magazynlaptopowwpf\\mainwindow.xaml||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
       "RelativeMoniker": "D:0:0:{E39F0CFE-3180-403C-A156-3506DA53A807}|MagazynLaptopowWPF\\MagazynLaptopowWPF.csproj|solutionrelative:magazynlaptopowwpf\\mainwindow.xaml||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E39F0CFE-3180-403C-A156-3506DA53A807}|MagazynLaptopowWPF\\MagazynLaptopowWPF.csproj|c:\\users\\tomas\\downloads\\magazynwpf-main\\magazynwpf-main\\magazynlaptopowwpf\\viewmodels\\loginviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E39F0CFE-3180-403C-A156-3506DA53A807}|MagazynLaptopowWPF\\MagazynLaptopowWPF.csproj|solutionrelative:magazynlaptopowwpf\\viewmodels\\loginviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{E39F0CFE-3180-403C-A156-3506DA53A807}|MagazynLaptopowWPF\\MagazynLaptopowWPF.csproj|c:\\users\\tomas\\downloads\\magazynwpf-main\\magazynwpf-main\\magazynlaptopowwpf\\views\\settingswindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E39F0CFE-3180-403C-A156-3506DA53A807}|MagazynLaptopowWPF\\MagazynLaptopowWPF.csproj|solutionrelative:magazynlaptopowwpf\\views\\settingswindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E39F0CFE-3180-403C-A156-3506DA53A807}|MagazynLaptopowWPF\\MagazynLaptopowWPF.csproj|c:\\users\\tomas\\downloads\\magazynwpf-main\\magazynwpf-main\\magazynlaptopowwpf\\views\\settingswindow.xaml||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
+      "RelativeMoniker": "D:0:0:{E39F0CFE-3180-403C-A156-3506DA53A807}|MagazynLaptopowWPF\\MagazynLaptopowWPF.csproj|solutionrelative:magazynlaptopowwpf\\views\\settingswindow.xaml||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E39F0CFE-3180-403C-A156-3506DA53A807}|MagazynLaptopowWPF\\MagazynLaptopowWPF.csproj|c:\\users\\tomas\\downloads\\magazynwpf-main\\magazynwpf-main\\magazynlaptopowwpf\\inversebooleantovisibilityconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E39F0CFE-3180-403C-A156-3506DA53A807}|MagazynLaptopowWPF\\MagazynLaptopowWPF.csproj|solutionrelative:magazynlaptopowwpf\\inversebooleantovisibilityconverter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E39F0CFE-3180-403C-A156-3506DA53A807}|MagazynLaptopowWPF\\MagazynLaptopowWPF.csproj|c:\\users\\tomas\\downloads\\magazynwpf-main\\magazynwpf-main\\magazynlaptopowwpf\\app.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{E39F0CFE-3180-403C-A156-3506DA53A807}|MagazynLaptopowWPF\\MagazynLaptopowWPF.csproj|solutionrelative:magazynlaptopowwpf\\app.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E39F0CFE-3180-403C-A156-3506DA53A807}|MagazynLaptopowWPF\\MagazynLaptopowWPF.csproj|c:\\users\\tomas\\downloads\\magazynwpf-main\\magazynwpf-main\\magazynlaptopowwpf\\app.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E39F0CFE-3180-403C-A156-3506DA53A807}|MagazynLaptopowWPF\\MagazynLaptopowWPF.csproj|solutionrelative:magazynlaptopowwpf\\app.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E39F0CFE-3180-403C-A156-3506DA53A807}|MagazynLaptopowWPF\\MagazynLaptopowWPF.csproj|c:\\users\\tomas\\downloads\\magazynwpf-main\\magazynwpf-main\\magazynlaptopowwpf\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E39F0CFE-3180-403C-A156-3506DA53A807}|MagazynLaptopowWPF\\MagazynLaptopowWPF.csproj|solutionrelative:magazynlaptopowwpf\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{E39F0CFE-3180-403C-A156-3506DA53A807}|MagazynLaptopowWPF\\MagazynLaptopowWPF.csproj|c:\\users\\tomas\\downloads\\magazynwpf-main\\magazynwpf-main\\magazynlaptopowwpf\\viewmodels\\mainviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{E39F0CFE-3180-403C-A156-3506DA53A807}|MagazynLaptopowWPF\\MagazynLaptopowWPF.csproj|solutionrelative:magazynlaptopowwpf\\viewmodels\\mainviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E39F0CFE-3180-403C-A156-3506DA53A807}|MagazynLaptopowWPF\\MagazynLaptopowWPF.csproj|c:\\users\\tomas\\downloads\\magazynwpf-main\\magazynwpf-main\\magazynlaptopowwpf\\controls\\barcodecontrol.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E39F0CFE-3180-403C-A156-3506DA53A807}|MagazynLaptopowWPF\\MagazynLaptopowWPF.csproj|solutionrelative:magazynlaptopowwpf\\controls\\barcodecontrol.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E39F0CFE-3180-403C-A156-3506DA53A807}|MagazynLaptopowWPF\\MagazynLaptopowWPF.csproj|c:\\users\\tomas\\downloads\\magazynwpf-main\\magazynwpf-main\\magazynlaptopowwpf\\controls\\barcodecontrol.xaml||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
+      "RelativeMoniker": "D:0:0:{E39F0CFE-3180-403C-A156-3506DA53A807}|MagazynLaptopowWPF\\MagazynLaptopowWPF.csproj|solutionrelative:magazynlaptopowwpf\\controls\\barcodecontrol.xaml||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E39F0CFE-3180-403C-A156-3506DA53A807}|MagazynLaptopowWPF\\MagazynLaptopowWPF.csproj|c:\\users\\tomas\\downloads\\magazynwpf-main\\magazynwpf-main\\magazynlaptopowwpf\\models\\settings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E39F0CFE-3180-403C-A156-3506DA53A807}|MagazynLaptopowWPF\\MagazynLaptopowWPF.csproj|solutionrelative:magazynlaptopowwpf\\models\\settings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E39F0CFE-3180-403C-A156-3506DA53A807}|MagazynLaptopowWPF\\MagazynLaptopowWPF.csproj|c:\\users\\tomas\\downloads\\magazynwpf-main\\magazynwpf-main\\magazynlaptopowwpf\\viewmodels\\loginviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E39F0CFE-3180-403C-A156-3506DA53A807}|MagazynLaptopowWPF\\MagazynLaptopowWPF.csproj|solutionrelative:magazynlaptopowwpf\\viewmodels\\loginviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{E39F0CFE-3180-403C-A156-3506DA53A807}|MagazynLaptopowWPF\\MagazynLaptopowWPF.csproj|c:\\users\\tomas\\downloads\\magazynwpf-main\\magazynwpf-main\\magazynlaptopowwpf\\views\\loginwindow.xaml||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
@@ -27,16 +59,8 @@
       "RelativeMoniker": "D:0:0:{E39F0CFE-3180-403C-A156-3506DA53A807}|MagazynLaptopowWPF\\MagazynLaptopowWPF.csproj|solutionrelative:magazynlaptopowwpf\\views\\loginwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E39F0CFE-3180-403C-A156-3506DA53A807}|MagazynLaptopowWPF\\MagazynLaptopowWPF.csproj|c:\\users\\tomas\\downloads\\magazynwpf-main\\magazynwpf-main\\magazynlaptopowwpf\\app.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{E39F0CFE-3180-403C-A156-3506DA53A807}|MagazynLaptopowWPF\\MagazynLaptopowWPF.csproj|solutionrelative:magazynlaptopowwpf\\app.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{E39F0CFE-3180-403C-A156-3506DA53A807}|MagazynLaptopowWPF\\MagazynLaptopowWPF.csproj|c:\\users\\tomas\\downloads\\magazynwpf-main\\magazynwpf-main\\magazynlaptopowwpf\\services\\laptoprepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{E39F0CFE-3180-403C-A156-3506DA53A807}|MagazynLaptopowWPF\\MagazynLaptopowWPF.csproj|solutionrelative:magazynlaptopowwpf\\services\\laptoprepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{E39F0CFE-3180-403C-A156-3506DA53A807}|MagazynLaptopowWPF\\MagazynLaptopowWPF.csproj|c:\\users\\tomas\\downloads\\magazynwpf-main\\magazynwpf-main\\magazynlaptopowwpf\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E39F0CFE-3180-403C-A156-3506DA53A807}|MagazynLaptopowWPF\\MagazynLaptopowWPF.csproj|solutionrelative:magazynlaptopowwpf\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{E39F0CFE-3180-403C-A156-3506DA53A807}|MagazynLaptopowWPF\\MagazynLaptopowWPF.csproj|c:\\users\\tomas\\downloads\\magazynwpf-main\\magazynwpf-main\\magazynlaptopowwpf\\migrations\\appdbcontextmodelsnapshot.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -97,7 +121,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 11,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Bookmark",
@@ -109,57 +133,98 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
+              "Title": "SettingsWindow.xaml",
+              "DocumentMoniker": "C:\\Users\\tomas\\Downloads\\MagazynWPF-main\\MagazynWPF-main\\MagazynLaptopowWPF\\Views\\SettingsWindow.xaml",
+              "RelativeDocumentMoniker": "MagazynLaptopowWPF\\Views\\SettingsWindow.xaml",
+              "ToolTip": "C:\\Users\\tomas\\Downloads\\MagazynWPF-main\\MagazynWPF-main\\MagazynLaptopowWPF\\Views\\SettingsWindow.xaml",
+              "RelativeToolTip": "MagazynLaptopowWPF\\Views\\SettingsWindow.xaml",
+              "ViewState": "AgIAABMAAAAAAAAAAAAIwDQAAAASAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-04-01T17:59:44.652Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
               "Title": "MainWindow.xaml",
               "DocumentMoniker": "C:\\Users\\tomas\\Downloads\\MagazynWPF-main\\MagazynWPF-main\\MagazynLaptopowWPF\\MainWindow.xaml",
               "RelativeDocumentMoniker": "MagazynLaptopowWPF\\MainWindow.xaml",
               "ToolTip": "C:\\Users\\tomas\\Downloads\\MagazynWPF-main\\MagazynWPF-main\\MagazynLaptopowWPF\\MainWindow.xaml",
               "RelativeToolTip": "MagazynLaptopowWPF\\MainWindow.xaml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAABAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-04-01T17:44:34.207Z",
+              "WhenOpened": "2025-04-01T17:56:51.353Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "LoginWindow.xaml.cs",
-              "DocumentMoniker": "C:\\Users\\tomas\\Downloads\\MagazynWPF-main\\MagazynWPF-main\\MagazynLaptopowWPF\\Views\\LoginWindow.xaml.cs",
-              "RelativeDocumentMoniker": "MagazynLaptopowWPF\\Views\\LoginWindow.xaml.cs",
-              "ToolTip": "C:\\Users\\tomas\\Downloads\\MagazynWPF-main\\MagazynWPF-main\\MagazynLaptopowWPF\\Views\\LoginWindow.xaml.cs",
-              "RelativeToolTip": "MagazynLaptopowWPF\\Views\\LoginWindow.xaml.cs",
-              "ViewState": "AgIAAAcAAAAAAAAAAAAgwDkAAAABAAAAAAAAAA==",
+              "DocumentIndex": 3,
+              "Title": "InverseBooleanToVisibilityConverter.cs",
+              "DocumentMoniker": "C:\\Users\\tomas\\Downloads\\MagazynWPF-main\\MagazynWPF-main\\MagazynLaptopowWPF\\InverseBooleanToVisibilityConverter.cs",
+              "RelativeDocumentMoniker": "MagazynLaptopowWPF\\InverseBooleanToVisibilityConverter.cs",
+              "ToolTip": "C:\\Users\\tomas\\Downloads\\MagazynWPF-main\\MagazynWPF-main\\MagazynLaptopowWPF\\InverseBooleanToVisibilityConverter.cs",
+              "RelativeToolTip": "MagazynLaptopowWPF\\InverseBooleanToVisibilityConverter.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-01T16:27:42.433Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "LoginWindow.xaml",
-              "DocumentMoniker": "C:\\Users\\tomas\\Downloads\\MagazynWPF-main\\MagazynWPF-main\\MagazynLaptopowWPF\\Views\\LoginWindow.xaml",
-              "RelativeDocumentMoniker": "MagazynLaptopowWPF\\Views\\LoginWindow.xaml",
-              "ToolTip": "C:\\Users\\tomas\\Downloads\\MagazynWPF-main\\MagazynWPF-main\\MagazynLaptopowWPF\\Views\\LoginWindow.xaml",
-              "RelativeToolTip": "MagazynLaptopowWPF\\Views\\LoginWindow.xaml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB8AAABjAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-04-01T16:27:14.553Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "LoginViewModel.cs",
-              "DocumentMoniker": "C:\\Users\\tomas\\Downloads\\MagazynWPF-main\\MagazynWPF-main\\MagazynLaptopowWPF\\ViewModels\\LoginViewModel.cs",
-              "RelativeDocumentMoniker": "MagazynLaptopowWPF\\ViewModels\\LoginViewModel.cs",
-              "ToolTip": "C:\\Users\\tomas\\Downloads\\MagazynWPF-main\\MagazynWPF-main\\MagazynLaptopowWPF\\ViewModels\\LoginViewModel.cs",
-              "RelativeToolTip": "MagazynLaptopowWPF\\ViewModels\\LoginViewModel.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAALgCAABOAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-01T16:26:49.84Z",
+              "WhenOpened": "2025-04-01T17:55:05.608Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 1,
+              "Title": "SettingsWindow.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\tomas\\Downloads\\MagazynWPF-main\\MagazynWPF-main\\MagazynLaptopowWPF\\Views\\SettingsWindow.xaml.cs",
+              "RelativeDocumentMoniker": "MagazynLaptopowWPF\\Views\\SettingsWindow.xaml.cs",
+              "ToolTip": "C:\\Users\\tomas\\Downloads\\MagazynWPF-main\\MagazynWPF-main\\MagazynLaptopowWPF\\Views\\SettingsWindow.xaml.cs",
+              "RelativeToolTip": "MagazynLaptopowWPF\\Views\\SettingsWindow.xaml.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-01T17:51:01.073Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "BarcodeControl.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\tomas\\Downloads\\MagazynWPF-main\\MagazynWPF-main\\MagazynLaptopowWPF\\Controls\\BarcodeControl.xaml.cs",
+              "RelativeDocumentMoniker": "MagazynLaptopowWPF\\Controls\\BarcodeControl.xaml.cs",
+              "ToolTip": "C:\\Users\\tomas\\Downloads\\MagazynWPF-main\\MagazynWPF-main\\MagazynLaptopowWPF\\Controls\\BarcodeControl.xaml.cs",
+              "RelativeToolTip": "MagazynLaptopowWPF\\Controls\\BarcodeControl.xaml.cs",
+              "ViewState": "AgIAAG4AAAAAAAAAAAAgwJgAAAAOAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-01T17:50:25.151Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "BarcodeControl.xaml",
+              "DocumentMoniker": "C:\\Users\\tomas\\Downloads\\MagazynWPF-main\\MagazynWPF-main\\MagazynLaptopowWPF\\Controls\\BarcodeControl.xaml",
+              "RelativeDocumentMoniker": "MagazynLaptopowWPF\\Controls\\BarcodeControl.xaml",
+              "ToolTip": "C:\\Users\\tomas\\Downloads\\MagazynWPF-main\\MagazynWPF-main\\MagazynLaptopowWPF\\Controls\\BarcodeControl.xaml",
+              "RelativeToolTip": "MagazynLaptopowWPF\\Controls\\BarcodeControl.xaml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAOAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-04-01T17:50:11.717Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "Settings.cs",
+              "DocumentMoniker": "C:\\Users\\tomas\\Downloads\\MagazynWPF-main\\MagazynWPF-main\\MagazynLaptopowWPF\\Models\\Settings.cs",
+              "RelativeDocumentMoniker": "MagazynLaptopowWPF\\Models\\Settings.cs",
+              "ToolTip": "C:\\Users\\tomas\\Downloads\\MagazynWPF-main\\MagazynWPF-main\\MagazynLaptopowWPF\\Models\\Settings.cs",
+              "RelativeToolTip": "MagazynLaptopowWPF\\Models\\Settings.cs",
+              "ViewState": "AgIAABIAAAAAAAAAAAAgwEQAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-01T17:49:34.658Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
               "Title": "Styles.xaml",
               "DocumentMoniker": "C:\\Users\\tomas\\Downloads\\MagazynWPF-main\\MagazynWPF-main\\MagazynLaptopowWPF\\Resources\\Styles.xaml",
               "RelativeDocumentMoniker": "MagazynLaptopowWPF\\Resources\\Styles.xaml",
@@ -171,7 +236,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 22,
               "Title": "BaseViewModel.cs",
               "DocumentMoniker": "C:\\Users\\tomas\\Downloads\\MagazynWPF-main\\MagazynWPF-main\\MagazynLaptopowWPF\\ViewModels\\BaseViewModel.cs",
               "RelativeDocumentMoniker": "MagazynLaptopowWPF\\ViewModels\\BaseViewModel.cs",
@@ -183,7 +248,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 17,
+              "DocumentIndex": 23,
               "Title": "AddEditLaptopWindow.xaml",
               "DocumentMoniker": "C:\\Users\\tomas\\Downloads\\MagazynWPF-main\\MagazynWPF-main\\MagazynLaptopowWPF\\Views\\AddEditLaptopWindow.xaml",
               "RelativeDocumentMoniker": "MagazynLaptopowWPF\\Views\\AddEditLaptopWindow.xaml",
@@ -191,12 +256,11 @@
               "RelativeToolTip": "MagazynLaptopowWPF\\Views\\AddEditLaptopWindow.xaml",
               "ViewState": "AgIAAEwAAAAAAAAAAAAuwIAAAAASAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-04-01T15:28:26.698Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-01T15:28:26.698Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 19,
+              "DocumentIndex": 25,
               "Title": "AssemblyInfo.cs",
               "DocumentMoniker": "C:\\Users\\tomas\\Downloads\\MagazynWPF-main\\MagazynWPF-main\\MagazynLaptopowWPF\\AssemblyInfo.cs",
               "RelativeDocumentMoniker": "MagazynLaptopowWPF\\AssemblyInfo.cs",
@@ -208,26 +272,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 20,
-              "Title": "XamlReader.cs",
-              "DocumentMoniker": "C:\\Users\\tomas\\AppData\\Local\\Temp\\.vsdbgsrc\\0a84cc53936b314ba955b54f50bf4796d8234943f3fd7b93873381b45d404026\\XamlReader.cs",
-              "RelativeDocumentMoniker": "..\\..\\..\\AppData\\Local\\Temp\\.vsdbgsrc\\0a84cc53936b314ba955b54f50bf4796d8234943f3fd7b93873381b45d404026\\XamlReader.cs",
-              "ToolTip": "C:\\Users\\tomas\\AppData\\Local\\Temp\\.vsdbgsrc\\0a84cc53936b314ba955b54f50bf4796d8234943f3fd7b93873381b45d404026\\XamlReader.cs",
-              "RelativeToolTip": "..\\..\\..\\AppData\\Local\\Temp\\.vsdbgsrc\\0a84cc53936b314ba955b54f50bf4796d8234943f3fd7b93873381b45d404026\\XamlReader.cs",
-              "ViewState": "AgIAAMMBAAAAAAAAAAAkwNkBAAAeAAAAAQAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-01T14:33:20.597Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 5,
               "Title": "App.xaml.cs",
               "DocumentMoniker": "C:\\Users\\tomas\\Downloads\\MagazynWPF-main\\MagazynWPF-main\\MagazynLaptopowWPF\\App.xaml.cs",
               "RelativeDocumentMoniker": "MagazynLaptopowWPF\\App.xaml.cs",
               "ToolTip": "C:\\Users\\tomas\\Downloads\\MagazynWPF-main\\MagazynWPF-main\\MagazynLaptopowWPF\\App.xaml.cs",
               "RelativeToolTip": "MagazynLaptopowWPF\\App.xaml.cs",
-              "ViewState": "AgIAACYAAAAAAAAAAAAgwEcAAAAQAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-04-01T14:14:48.016Z",
               "EditorCaption": ""
@@ -235,6 +286,92 @@
             {
               "$type": "Document",
               "DocumentIndex": 7,
+              "Title": "MainViewModel.cs",
+              "DocumentMoniker": "C:\\Users\\tomas\\Downloads\\MagazynWPF-main\\MagazynWPF-main\\MagazynLaptopowWPF\\ViewModels\\MainViewModel.cs",
+              "RelativeDocumentMoniker": "MagazynLaptopowWPF\\ViewModels\\MainViewModel.cs",
+              "ToolTip": "C:\\Users\\tomas\\Downloads\\MagazynWPF-main\\MagazynWPF-main\\MagazynLaptopowWPF\\ViewModels\\MainViewModel.cs",
+              "RelativeToolTip": "MagazynLaptopowWPF\\ViewModels\\MainViewModel.cs",
+              "ViewState": "AgIAAM4AAAAAAAAAAAAgwPQAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-01T14:06:43.22Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "App.xaml",
+              "DocumentMoniker": "C:\\Users\\tomas\\Downloads\\MagazynWPF-main\\MagazynWPF-main\\MagazynLaptopowWPF\\App.xaml",
+              "RelativeDocumentMoniker": "MagazynLaptopowWPF\\App.xaml",
+              "ToolTip": "C:\\Users\\tomas\\Downloads\\MagazynWPF-main\\MagazynWPF-main\\MagazynLaptopowWPF\\App.xaml",
+              "RelativeToolTip": "MagazynLaptopowWPF\\App.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-04-01T15:55:11.97Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "MainWindow.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\tomas\\Downloads\\MagazynWPF-main\\MagazynWPF-main\\MagazynLaptopowWPF\\MainWindow.xaml.cs",
+              "RelativeDocumentMoniker": "MagazynLaptopowWPF\\MainWindow.xaml.cs",
+              "ToolTip": "C:\\Users\\tomas\\Downloads\\MagazynWPF-main\\MagazynWPF-main\\MagazynLaptopowWPF\\MainWindow.xaml.cs",
+              "RelativeToolTip": "MagazynLaptopowWPF\\MainWindow.xaml.cs",
+              "ViewState": "AgIAAFAAAAAAAAAAAAAwwG8AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-01T14:28:51.783Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "LoginViewModel.cs",
+              "DocumentMoniker": "C:\\Users\\tomas\\Downloads\\MagazynWPF-main\\MagazynWPF-main\\MagazynLaptopowWPF\\ViewModels\\LoginViewModel.cs",
+              "RelativeDocumentMoniker": "MagazynLaptopowWPF\\ViewModels\\LoginViewModel.cs",
+              "ToolTip": "C:\\Users\\tomas\\Downloads\\MagazynWPF-main\\MagazynWPF-main\\MagazynLaptopowWPF\\ViewModels\\LoginViewModel.cs",
+              "RelativeToolTip": "MagazynLaptopowWPF\\ViewModels\\LoginViewModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAALgCAABOAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-01T16:26:49.84Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "LoginWindow.xaml",
+              "DocumentMoniker": "C:\\Users\\tomas\\Downloads\\MagazynWPF-main\\MagazynWPF-main\\MagazynLaptopowWPF\\Views\\LoginWindow.xaml",
+              "RelativeDocumentMoniker": "MagazynLaptopowWPF\\Views\\LoginWindow.xaml",
+              "ToolTip": "C:\\Users\\tomas\\Downloads\\MagazynWPF-main\\MagazynWPF-main\\MagazynLaptopowWPF\\Views\\LoginWindow.xaml",
+              "RelativeToolTip": "MagazynLaptopowWPF\\Views\\LoginWindow.xaml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB8AAABjAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-04-01T16:27:14.553Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "LoginWindow.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\tomas\\Downloads\\MagazynWPF-main\\MagazynWPF-main\\MagazynLaptopowWPF\\Views\\LoginWindow.xaml.cs",
+              "RelativeDocumentMoniker": "MagazynLaptopowWPF\\Views\\LoginWindow.xaml.cs",
+              "ToolTip": "C:\\Users\\tomas\\Downloads\\MagazynWPF-main\\MagazynWPF-main\\MagazynLaptopowWPF\\Views\\LoginWindow.xaml.cs",
+              "RelativeToolTip": "MagazynLaptopowWPF\\Views\\LoginWindow.xaml.cs",
+              "ViewState": "AgIAAAcAAAAAAAAAAAAgwDkAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-01T16:27:42.433Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 26,
+              "Title": "XamlReader.cs",
+              "DocumentMoniker": "C:\\Users\\tomas\\AppData\\Local\\Temp\\.vsdbgsrc\\0a84cc53936b314ba955b54f50bf4796d8234943f3fd7b93873381b45d404026\\XamlReader.cs",
+              "RelativeDocumentMoniker": "..\\..\\..\\AppData\\Local\\Temp\\.vsdbgsrc\\0a84cc53936b314ba955b54f50bf4796d8234943f3fd7b93873381b45d404026\\XamlReader.cs",
+              "ToolTip": "C:\\Users\\tomas\\AppData\\Local\\Temp\\.vsdbgsrc\\0a84cc53936b314ba955b54f50bf4796d8234943f3fd7b93873381b45d404026\\XamlReader.cs",
+              "RelativeToolTip": "..\\..\\..\\AppData\\Local\\Temp\\.vsdbgsrc\\0a84cc53936b314ba955b54f50bf4796d8234943f3fd7b93873381b45d404026\\XamlReader.cs",
+              "ViewState": "AgIAAMMBAAAAAAAAAAAkwNkBAAAeAAAAAQAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-01T14:33:20.597Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
               "Title": "LaptopRepository.cs",
               "DocumentMoniker": "C:\\Users\\tomas\\Downloads\\MagazynWPF-main\\MagazynWPF-main\\MagazynLaptopowWPF\\Services\\LaptopRepository.cs",
               "RelativeDocumentMoniker": "MagazynLaptopowWPF\\Services\\LaptopRepository.cs",
@@ -246,31 +383,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "App.xaml",
-              "DocumentMoniker": "C:\\Users\\tomas\\Downloads\\MagazynWPF-main\\MagazynWPF-main\\MagazynLaptopowWPF\\App.xaml",
-              "RelativeDocumentMoniker": "MagazynLaptopowWPF\\App.xaml",
-              "ToolTip": "C:\\Users\\tomas\\Downloads\\MagazynWPF-main\\MagazynWPF-main\\MagazynLaptopowWPF\\App.xaml",
-              "RelativeToolTip": "MagazynLaptopowWPF\\App.xaml",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-04-01T15:55:11.97Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "MainViewModel.cs",
-              "DocumentMoniker": "C:\\Users\\tomas\\Downloads\\MagazynWPF-main\\MagazynWPF-main\\MagazynLaptopowWPF\\ViewModels\\MainViewModel.cs",
-              "RelativeDocumentMoniker": "MagazynLaptopowWPF\\ViewModels\\MainViewModel.cs",
-              "ToolTip": "C:\\Users\\tomas\\Downloads\\MagazynWPF-main\\MagazynWPF-main\\MagazynLaptopowWPF\\ViewModels\\MainViewModel.cs",
-              "RelativeToolTip": "MagazynLaptopowWPF\\ViewModels\\MainViewModel.cs",
-              "ViewState": "AgIAACABAAAAAAAAAAAQwE8BAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-01T14:06:43.22Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 18,
               "Title": "DesignTimeDbContextFactory.cs",
               "DocumentMoniker": "C:\\Users\\tomas\\Downloads\\MagazynWPF-main\\MagazynWPF-main\\MagazynLaptopowWPF\\Models\\DesignTimeDbContextFactory.cs",
               "RelativeDocumentMoniker": "MagazynLaptopowWPF\\Models\\DesignTimeDbContextFactory.cs",
@@ -282,7 +395,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 15,
               "Title": "AppDbContextModelSnapshot.cs",
               "DocumentMoniker": "C:\\Users\\tomas\\Downloads\\MagazynWPF-main\\MagazynWPF-main\\MagazynLaptopowWPF\\Migrations\\AppDbContextModelSnapshot.cs",
               "RelativeDocumentMoniker": "MagazynLaptopowWPF\\Migrations\\AppDbContextModelSnapshot.cs",
@@ -294,19 +407,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "MainWindow.xaml.cs",
-              "DocumentMoniker": "C:\\Users\\tomas\\Downloads\\MagazynWPF-main\\MagazynWPF-main\\MagazynLaptopowWPF\\MainWindow.xaml.cs",
-              "RelativeDocumentMoniker": "MagazynLaptopowWPF\\MainWindow.xaml.cs",
-              "ToolTip": "C:\\Users\\tomas\\Downloads\\MagazynWPF-main\\MagazynWPF-main\\MagazynLaptopowWPF\\MainWindow.xaml.cs",
-              "RelativeToolTip": "MagazynLaptopowWPF\\MainWindow.xaml.cs",
-              "ViewState": "AgIAAFAAAAAAAAAAAAAwwG8AAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-01T14:28:51.783Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 17,
               "Title": "BooleanConverter.cs",
               "DocumentMoniker": "C:\\Users\\tomas\\Downloads\\MagazynWPF-main\\MagazynWPF-main\\MagazynLaptopowWPF\\Models\\BooleanConverter.cs",
               "RelativeDocumentMoniker": "MagazynLaptopowWPF\\Models\\BooleanConverter.cs",
@@ -318,7 +419,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 16,
               "Title": "AppDbContext.cs",
               "DocumentMoniker": "C:\\Users\\tomas\\Downloads\\MagazynWPF-main\\MagazynWPF-main\\MagazynLaptopowWPF\\Models\\AppDbContext.cs",
               "RelativeDocumentMoniker": "MagazynLaptopowWPF\\Models\\AppDbContext.cs",
@@ -330,7 +431,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 21,
+              "DocumentIndex": 27,
               "Title": "20250401143105_DodanieKoduKreskowego.cs",
               "DocumentMoniker": "C:\\Users\\tomas\\Downloads\\MagazynWPF-main\\MagazynWPF-main\\MagazynLaptopowWPF\\Migrations\\20250401143105_DodanieKoduKreskowego.cs",
               "RelativeDocumentMoniker": "MagazynLaptopowWPF\\Migrations\\20250401143105_DodanieKoduKreskowego.cs",
@@ -342,7 +443,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 18,
+              "DocumentIndex": 24,
               "Title": "AddEditLaptopWindow.xaml.cs",
               "DocumentMoniker": "C:\\Users\\tomas\\Downloads\\MagazynWPF-main\\MagazynWPF-main\\MagazynLaptopowWPF\\Views\\AddEditLaptopWindow.xaml.cs",
               "RelativeDocumentMoniker": "MagazynLaptopowWPF\\Views\\AddEditLaptopWindow.xaml.cs",
@@ -354,7 +455,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 21,
               "Title": "AddEditLaptopViewModel.cs",
               "DocumentMoniker": "C:\\Users\\tomas\\Downloads\\MagazynWPF-main\\MagazynWPF-main\\MagazynLaptopowWPF\\ViewModels\\AddEditLaptopViewModel.cs",
               "RelativeDocumentMoniker": "MagazynLaptopowWPF\\ViewModels\\AddEditLaptopViewModel.cs",
@@ -366,7 +467,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 19,
               "Title": "Laptop.cs",
               "DocumentMoniker": "C:\\Users\\tomas\\Downloads\\MagazynWPF-main\\MagazynWPF-main\\MagazynLaptopowWPF\\Models\\Laptop.cs",
               "RelativeDocumentMoniker": "MagazynLaptopowWPF\\Models\\Laptop.cs",

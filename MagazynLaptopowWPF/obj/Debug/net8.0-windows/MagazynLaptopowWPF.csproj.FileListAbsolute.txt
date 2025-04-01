@@ -460,10 +460,13 @@ C:\Users\tomas\Downloads\MagazynWPF-main\MagazynWPF-main\MagazynLaptopowWPF\bin\
 C:\Users\tomas\Downloads\MagazynWPF-main\MagazynWPF-main\MagazynLaptopowWPF\bin\Debug\net8.0-windows\runtimes\win-x86\native\e_sqlite3.dll
 C:\Users\tomas\Downloads\MagazynWPF-main\MagazynWPF-main\MagazynLaptopowWPF\bin\Debug\net8.0-windows\runtimes\browser\lib\net8.0\System.Text.Encodings.Web.dll
 C:\Users\tomas\Downloads\MagazynWPF-main\MagazynWPF-main\MagazynLaptopowWPF\obj\Debug\net8.0-windows\MagazynLaptopowWPF.csproj.AssemblyReference.cache
+C:\Users\tomas\Downloads\MagazynWPF-main\MagazynWPF-main\MagazynLaptopowWPF\obj\Debug\net8.0-windows\Controls\BarcodeControl.baml
 C:\Users\tomas\Downloads\MagazynWPF-main\MagazynWPF-main\MagazynLaptopowWPF\obj\Debug\net8.0-windows\Resources\Styles.baml
+C:\Users\tomas\Downloads\MagazynWPF-main\MagazynWPF-main\MagazynLaptopowWPF\obj\Debug\net8.0-windows\Controls\BarcodeControl.g.cs
 C:\Users\tomas\Downloads\MagazynWPF-main\MagazynWPF-main\MagazynLaptopowWPF\obj\Debug\net8.0-windows\MainWindow.g.cs
 C:\Users\tomas\Downloads\MagazynWPF-main\MagazynWPF-main\MagazynLaptopowWPF\obj\Debug\net8.0-windows\Views\AddEditLaptopWindow.g.cs
 C:\Users\tomas\Downloads\MagazynWPF-main\MagazynWPF-main\MagazynLaptopowWPF\obj\Debug\net8.0-windows\Views\LoginWindow.g.cs
+C:\Users\tomas\Downloads\MagazynWPF-main\MagazynWPF-main\MagazynLaptopowWPF\obj\Debug\net8.0-windows\Views\SettingsWindow.g.cs
 C:\Users\tomas\Downloads\MagazynWPF-main\MagazynWPF-main\MagazynLaptopowWPF\obj\Debug\net8.0-windows\App.g.cs
 C:\Users\tomas\Downloads\MagazynWPF-main\MagazynWPF-main\MagazynLaptopowWPF\obj\Debug\net8.0-windows\GeneratedInternalTypeHelper.g.cs
 C:\Users\tomas\Downloads\MagazynWPF-main\MagazynWPF-main\MagazynLaptopowWPF\obj\Debug\net8.0-windows\MagazynLaptopowWPF_MarkupCompile.cache
@@ -472,6 +475,7 @@ C:\Users\tomas\Downloads\MagazynWPF-main\MagazynWPF-main\MagazynLaptopowWPF\obj\
 C:\Users\tomas\Downloads\MagazynWPF-main\MagazynWPF-main\MagazynLaptopowWPF\obj\Debug\net8.0-windows\MainWindow.baml
 C:\Users\tomas\Downloads\MagazynWPF-main\MagazynWPF-main\MagazynLaptopowWPF\obj\Debug\net8.0-windows\Views\AddEditLaptopWindow.baml
 C:\Users\tomas\Downloads\MagazynWPF-main\MagazynWPF-main\MagazynLaptopowWPF\obj\Debug\net8.0-windows\Views\LoginWindow.baml
+C:\Users\tomas\Downloads\MagazynWPF-main\MagazynWPF-main\MagazynLaptopowWPF\obj\Debug\net8.0-windows\Views\SettingsWindow.baml
 C:\Users\tomas\Downloads\MagazynWPF-main\MagazynWPF-main\MagazynLaptopowWPF\obj\Debug\net8.0-windows\MagazynLaptopowWPF.g.resources
 C:\Users\tomas\Downloads\MagazynWPF-main\MagazynWPF-main\MagazynLaptopowWPF\obj\Debug\net8.0-windows\MagazynLaptopowWPF.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\tomas\Downloads\MagazynWPF-main\MagazynWPF-main\MagazynLaptopowWPF\obj\Debug\net8.0-windows\MagazynLaptopowWPF.AssemblyInfoInputs.cache

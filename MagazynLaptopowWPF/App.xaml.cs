@@ -17,6 +17,9 @@ namespace MagazynLaptopowWPF
         // Ścieżka do pliku bazy danych
         public static string DbPath { get; private set; } = Path.Combine(Directory.GetCurrentDirectory(), "MagazynDb.sqlite");
 
+        public static Settings AppSettings { get; private set; } = Settings.LoadSettings();
+
+
         // Metoda uruchamiana przy starcie aplikacji
         protected override async void OnStartup(StartupEventArgs e)
         {

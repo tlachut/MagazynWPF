@@ -1,0 +1,53 @@
+<mah:MetroWindow x:Class="MagazynLaptopowWPF.Views.SettingsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MagazynLaptopowWPF.Views"
+        xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+        mc:Ignorable="d"
+        Title="Ustawienia Aplikacji" Height="250" Width="400"
+        WindowStartupLocation="CenterOwner"
+        ShowInTaskbar="False"
+        GlowBrush="{DynamicResource MahApps.Brushes.Accent}"
+        BorderThickness="1" BorderBrush="{DynamicResource MahApps.Brushes.Accent}">
+
+	<Grid Margin="20">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="*"/>
+			<RowDefinition Height="Auto"/>
+		</Grid.RowDefinitions>
+
+		<!-- Nagłówek -->
+		<TextBlock Grid.Row="0" Text="Ustawienia Aplikacji"
+                  FontSize="18" FontWeight="Bold" Margin="0,0,0,20"/>
+
+		<!-- Ustawienia wizualizacji kodów kreskowych -->
+		<StackPanel Grid.Row="1" Orientation="Horizontal">
+			<mah:ToggleSwitch IsOn="{Binding ShowBarcodes}"
+                             OnContent="Włączona"
+                             OffContent="Wyłączona"
+                             Margin="0,0,15,0"/>
+			<TextBlock Text="Wizualizacja kodów kreskowych"
+                      VerticalAlignment="Center"
+                      FontWeight="SemiBold"/>
+		</StackPanel>
+
+		<!-- Przycisk OK -->
+		<Button Grid.Row="3" x:Name="OkButton" Click="OkButton_Click" IsDefault="True"
+               Content="OK" MinWidth="100" HorizontalAlignment="Right" Margin="0,20,0,0"
+               Style="{StaticResource MahApps.Styles.Button.Square.Accent}">
+			<Button.ContentTemplate>
+				<DataTemplate>
+					<StackPanel Orientation="Horizontal">
+						<iconPacks:PackIconMaterial Kind="Check" Margin="0,0,8,0"/>
+						<TextBlock Text="OK"/>
+					</StackPanel>
+				</DataTemplate>
+			</Button.ContentTemplate>
+		</Button>
+	</Grid>
+</mah:MetroWindow>

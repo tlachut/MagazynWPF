@@ -7,6 +7,10 @@
     <!-- Upewnij się, że nie ma StartupUri -->
     <Application.Resources>
         <ResourceDictionary>
+            <!-- Konwertery - teraz są na właściwym poziomie -->
+            <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+            <local:InverseBooleanToVisibilityConverter x:Key="InverseBooleanToVisibilityConverter"/>
+
             <ResourceDictionary.MergedDictionaries>
                 <!-- Słowniki MahApps.Metro -->
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />

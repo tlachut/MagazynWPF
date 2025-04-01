@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET8_0;NETCOREAPP
 C:\Users\tomas\Downloads\MagazynWPF-main\MagazynWPF-main\MagazynLaptopowWPF\App.xaml
-48596850
+61843430813
 
-22463807712
+26-861245842
 226-1028606924
-MainWindow.xaml;Resources\Styles.xaml;Views\AddEditLaptopWindow.xaml;Views\LoginWindow.xaml;
+Controls\BarcodeControl.xaml;MainWindow.xaml;Resources\Styles.xaml;Views\AddEditLaptopWindow.xaml;Views\LoginWindow.xaml;Views\SettingsWindow.xaml;
 
 False
 

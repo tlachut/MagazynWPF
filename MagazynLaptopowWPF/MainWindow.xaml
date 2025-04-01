@@ -8,8 +8,9 @@
         xmlns:local="clr-namespace:MagazynLaptopowWPF"
         xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
         xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+		xmlns:controls="clr-namespace:MagazynLaptopowWPF.Controls"
         mc:Ignorable="d"
-        Title="Magazyn Laptopów Firmy X" Height="650" Width="920"
+        Title="Magazyn Laptopów Firmy X" Height="650" Width="1040"
         WindowStartupLocation="CenterScreen"
         GlowBrush="{DynamicResource MahApps.Brushes.Accent}"
         BorderThickness="1" BorderBrush="{DynamicResource MahApps.Brushes.Accent}">
@@ -98,6 +99,13 @@
 					<StackPanel Orientation="Horizontal">
 						<iconPacks:PackIconMaterial Kind="DeleteForever" Margin="0,0,8,0" VerticalAlignment="Center"/>
 						<TextBlock Text="Usuń" VerticalAlignment="Center"/>
+					</StackPanel>
+				</Button>
+
+				<Button Command="{Binding OpenSettingsCommand}" ToolTip="Ustawienia aplikacji" Style="{StaticResource AppButtonStyle}">
+					<StackPanel Orientation="Horizontal">
+						<iconPacks:PackIconMaterial Kind="Cog" Margin="0,0,8,0" VerticalAlignment="Center"/>
+						<TextBlock Text="Ustawienia" VerticalAlignment="Center"/>
 					</StackPanel>
 				</Button>
 
@@ -256,19 +264,34 @@
 
 			<!-- Podstawowe kolumny z prostymi stylami -->
 			<DataGrid.Columns>
-				<DataGridTextColumn Header="KOD KRESKOWY" Binding="{Binding KodKreskowy}" Width="1.5*">
-					<DataGridTextColumn.ElementStyle>
-						<Style TargetType="TextBlock">
-							<Setter Property="Padding" Value="4,0"/>
-							<Setter Property="VerticalAlignment" Value="Center"/>
-							<Style.Triggers>
-								<DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=DataGridRow}, Path=IsSelected}" Value="True">
-									<Setter Property="Foreground" Value="White"/>
-								</DataTrigger>
-							</Style.Triggers>
-						</Style>
-					</DataGridTextColumn.ElementStyle>
-				</DataGridTextColumn>
+				<DataGridTemplateColumn Header="KOD KRESKOWY" Width="1.5*">
+					<DataGridTemplateColumn.CellTemplate>
+						<DataTemplate>
+							<Grid>
+								<TextBlock Text="{Binding KodKreskowy}"
+										 Padding="4,0" VerticalAlignment="Center"
+										 Visibility="{Binding DataContext.Settings.ShowBarcodes, 
+                                     Converter={StaticResource InverseBooleanToVisibilityConverter}, 
+                                     RelativeSource={RelativeSource AncestorType=DataGrid}}">
+									<TextBlock.Style>
+										<Style TargetType="TextBlock">
+											<Style.Triggers>
+												<DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=DataGridRow}, Path=IsSelected}" Value="True">
+													<Setter Property="Foreground" Value="White"/>
+												</DataTrigger>
+											</Style.Triggers>
+										</Style>
+									</TextBlock.Style>
+								</TextBlock>
+								<controls:BarcodeControl BarcodeValue="{Binding KodKreskowy}"
+									Height="40" Margin="2"
+									Visibility="{Binding DataContext.Settings.ShowBarcodes, 
+										Converter={StaticResource BooleanToVisibilityConverter}, 
+										RelativeSource={RelativeSource AncestorType=DataGrid}}"/>
+							</Grid>
+						</DataTemplate>
+					</DataGridTemplateColumn.CellTemplate>
+				</DataGridTemplateColumn>
 
 				<DataGridTextColumn Header="MARKA" Binding="{Binding Marka}" Width="1.5*">
 					<DataGridTextColumn.ElementStyle>

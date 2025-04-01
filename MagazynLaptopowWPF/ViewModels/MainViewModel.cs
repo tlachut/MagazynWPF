@@ -18,6 +18,15 @@ namespace MagazynLaptopowWPF.ViewModels
 {
     public class MainViewModel : BaseViewModel
     {
+        private Settings _settings;
+        public Settings Settings
+        {
+            get => _settings;
+            set => SetProperty(ref _settings, value);
+        }
+
+        public ICommand OpenSettingsCommand { get; }
+
         private readonly ILaptopRepository _laptopRepository;
         private readonly AppDbContext _dbContext;
 
@@ -151,6 +160,10 @@ namespace MagazynLaptopowWPF.ViewModels
         // Konstruktor
         public MainViewModel(string? loggedInUser) // Zmieniono na nullable
         {
+
+            _settings = App.AppSettings;
+            OpenSettingsCommand = new RelayCommand(_ => OpenSettings(), _ => !IsBusy);
+
             LoggedInUser = loggedInUser;
 
             _laptopy = new ObservableCollection<Laptop>();
@@ -217,6 +230,15 @@ namespace MagazynLaptopowWPF.ViewModels
             {
                 IsBusy = false;
             }
+        }
+
+        private void OpenSettings()
+        {
+            var settingsWindow = new SettingsWindow(_settings);
+            settingsWindow.Owner = Application.Current.MainWindow;
+            settingsWindow.ShowDialog();
+            // Po zamknięciu okna, odśwież widok (jeśli zmieniły się ustawienia)
+            LaptopyView.Refresh();
         }
 
         private void AddLaptop()
