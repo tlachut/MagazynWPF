@@ -9,119 +9,142 @@
         xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
         xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
         mc:Ignorable="d"
-        Title="Magazyn Laptopów Firmy X" Height="650" Width="900"
+        Title="Magazyn Laptopów Firmy X" Height="650" Width="920"
         WindowStartupLocation="CenterScreen"
         GlowBrush="{DynamicResource MahApps.Brushes.Accent}"
         BorderThickness="1" BorderBrush="{DynamicResource MahApps.Brushes.Accent}">
 
-    <!-- Style specyficzne dla tego okna -->
-    <mah:MetroWindow.Resources>
-        <!-- Ujednolicony styl przycisków z poprawioną wysokością i paddingiem -->
-        <Style x:Key="AppButtonStyle" TargetType="Button" BasedOn="{StaticResource MahApps.Styles.Button.Square}">
-            <Setter Property="Margin" Value="4"/>
-            <Setter Property="Padding" Value="12,8"/>
-            <Setter Property="MinHeight" Value="36"/>
-            <Setter Property="Height" Value="36"/>
-            <Setter Property="VerticalContentAlignment" Value="Center"/>
-            <Setter Property="HorizontalContentAlignment" Value="Center"/>
-        </Style>
+	<!-- Style specyficzne dla tego okna -->
+	<mah:MetroWindow.Resources>
+		<!-- Ujednolicony styl przycisków z poprawioną wysokością i paddingiem -->
+		<Style x:Key="AppButtonStyle" TargetType="Button" BasedOn="{StaticResource MahApps.Styles.Button.Square}">
+			<Setter Property="Margin" Value="4"/>
+			<Setter Property="Padding" Value="12,8"/>
+			<Setter Property="MinHeight" Value="36"/>
+			<Setter Property="Height" Value="36"/>
+			<Setter Property="VerticalContentAlignment" Value="Center"/>
+			<Setter Property="HorizontalContentAlignment" Value="Center"/>
+		</Style>
 
-        <!-- Styl przycisków z akcentem -->
-        <Style x:Key="AccentButtonStyle" TargetType="Button" BasedOn="{StaticResource AppButtonStyle}">
-            <Setter Property="Background" Value="{DynamicResource MahApps.Brushes.Accent}"/>
-            <Setter Property="Foreground" Value="White"/>
-        </Style>
+		<!-- Styl przycisków z akcentem -->
+		<Style x:Key="AccentButtonStyle" TargetType="Button" BasedOn="{StaticResource AppButtonStyle}">
+			<Setter Property="Background" Value="{DynamicResource MahApps.Brushes.Accent}"/>
+			<Setter Property="Foreground" Value="White"/>
+		</Style>
 
-        <!-- Styl przycisków z ostrzeżeniem -->
-        <Style x:Key="WarningButtonStyle" TargetType="Button" BasedOn="{StaticResource AppButtonStyle}">
-            <Setter Property="Background" Value="OrangeRed"/>
-            <Setter Property="Foreground" Value="White"/>
-        </Style>
+		<!-- Styl przycisków z ostrzeżeniem -->
+		<Style x:Key="WarningButtonStyle" TargetType="Button" BasedOn="{StaticResource AppButtonStyle}">
+			<Setter Property="Background" Value="OrangeRed"/>
+			<Setter Property="Foreground" Value="White"/>
+		</Style>
 
-        <Style x:Key="FilterTextBox" TargetType="TextBox" BasedOn="{StaticResource MahApps.Styles.TextBox}">
-            <Setter Property="mah:TextBoxHelper.ClearTextButton" Value="True"/>
-            <Setter Property="MinWidth" Value="150"/>
-            <Setter Property="VerticalContentAlignment" Value="Center"/>
-            <Setter Property="Margin" Value="0,0,5,0"/>
-            <Setter Property="Height" Value="28"/>
-            <Setter Property="Padding" Value="8,4"/>
-        </Style>
+		<Style x:Key="FilterTextBox" TargetType="TextBox" BasedOn="{StaticResource MahApps.Styles.TextBox}">
+			<Setter Property="mah:TextBoxHelper.ClearTextButton" Value="True"/>
+			<Setter Property="MinWidth" Value="150"/>
+			<Setter Property="VerticalContentAlignment" Value="Center"/>
+			<Setter Property="Margin" Value="0,0,5,0"/>
+			<Setter Property="Height" Value="28"/>
+			<Setter Property="Padding" Value="8,4"/>
+		</Style>
 
-        <Style x:Key="FilterLabel" TargetType="TextBlock">
-            <Setter Property="VerticalAlignment" Value="Center"/>
-            <Setter Property="Margin" Value="10,0,5,0"/>
-        </Style>
-    </mah:MetroWindow.Resources>
+		<Style x:Key="FilterLabel" TargetType="TextBlock">
+			<Setter Property="VerticalAlignment" Value="Center"/>
+			<Setter Property="Margin" Value="10,0,5,0"/>
+		</Style>
+	</mah:MetroWindow.Resources>
 
-    <Grid Margin="15">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <!-- Pasek narzędzi -->
-            <RowDefinition Height="Auto"/>
-            <!-- Filtry -->
-            <RowDefinition Height="*"/>
-            <!-- DataGrid -->
-            <RowDefinition Height="Auto"/>
-            <!-- Pasek statusu -->
-        </Grid.RowDefinitions>
+	<Grid Margin="15">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto"/>
+			<!-- Pasek narzędzi -->
+			<RowDefinition Height="Auto"/>
+			<!-- Filtry -->
+			<RowDefinition Height="*"/>
+			<!-- DataGrid -->
+			<RowDefinition Height="Auto"/>
+			<!-- Pasek statusu -->
+		</Grid.RowDefinitions>
 
-		<!-- Pasek narzędzi z ikonami - poprawione style przycisków -->
-		<WrapPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,10">
-			<Button Command="{Binding LoadDataCommand}" ToolTip="Odśwież dane (F5)" Style="{StaticResource AppButtonStyle}">
-				<iconPacks:PackIconMaterial Kind="Refresh" Width="16" Height="16"/>
-			</Button>
+		<!-- Pasek narzędzi z ikonami i informacją o użytkowniku po prawej -->
+		<Grid Grid.Row="0" Margin="0,0,0,10">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="*"/>
+				<!-- Przyciski -->
+				<ColumnDefinition Width="Auto"/>
+				<!-- Profil użytkownika -->
+			</Grid.ColumnDefinitions>
 
-			<Button Command="{Binding AddLaptopCommand}" ToolTip="Dodaj nowy laptop" Style="{StaticResource AccentButtonStyle}">
-				<StackPanel Orientation="Horizontal">
-					<iconPacks:PackIconMaterial Kind="Plus" Margin="0,0,8,0" VerticalAlignment="Center"/>
-					<TextBlock Text="Dodaj" VerticalAlignment="Center"/>
-				</StackPanel>
-			</Button>
+			<!-- Przyciski narzędziowe po lewej -->
+			<WrapPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center">
+				<Button Command="{Binding LoadDataCommand}" ToolTip="Odśwież dane (F5)" Style="{StaticResource AppButtonStyle}">
+					<iconPacks:PackIconMaterial Kind="Refresh" Width="16" Height="16"/>
+				</Button>
 
-			<Button Command="{Binding EditLaptopCommand}" ToolTip="Edytuj zaznaczony laptop" Style="{StaticResource AppButtonStyle}">
-				<StackPanel Orientation="Horizontal">
-					<iconPacks:PackIconMaterial Kind="Pencil" Margin="0,0,8,0" VerticalAlignment="Center"/>
-					<TextBlock Text="Edytuj" VerticalAlignment="Center"/>
-				</StackPanel>
-			</Button>
+				<Button Command="{Binding AddLaptopCommand}" ToolTip="Dodaj nowy laptop" Style="{StaticResource AccentButtonStyle}">
+					<StackPanel Orientation="Horizontal">
+						<iconPacks:PackIconMaterial Kind="Plus" Margin="0,0,8,0" VerticalAlignment="Center"/>
+						<TextBlock Text="Dodaj" VerticalAlignment="Center"/>
+					</StackPanel>
+				</Button>
 
-			<Button Command="{Binding DeleteLaptopCommand}" ToolTip="Usuń zaznaczony laptop" Style="{StaticResource WarningButtonStyle}">
-				<StackPanel Orientation="Horizontal">
-					<iconPacks:PackIconMaterial Kind="DeleteForever" Margin="0,0,8,0" VerticalAlignment="Center"/>
-					<TextBlock Text="Usuń" VerticalAlignment="Center"/>
-				</StackPanel>
-			</Button>
+				<Button Command="{Binding EditLaptopCommand}" ToolTip="Edytuj zaznaczony laptop" Style="{StaticResource AppButtonStyle}">
+					<StackPanel Orientation="Horizontal">
+						<iconPacks:PackIconMaterial Kind="Pencil" Margin="0,0,8,0" VerticalAlignment="Center"/>
+						<TextBlock Text="Edytuj" VerticalAlignment="Center"/>
+					</StackPanel>
+				</Button>
 
-			<Separator Width="20" Background="Transparent"/>
-			<!-- Odstęp -->
+				<Button Command="{Binding DeleteLaptopCommand}" ToolTip="Usuń zaznaczony laptop" Style="{StaticResource WarningButtonStyle}">
+					<StackPanel Orientation="Horizontal">
+						<iconPacks:PackIconMaterial Kind="DeleteForever" Margin="0,0,8,0" VerticalAlignment="Center"/>
+						<TextBlock Text="Usuń" VerticalAlignment="Center"/>
+					</StackPanel>
+				</Button>
 
-			<Button Command="{Binding ToggleQuickModeCommand}"
-					ToolTip="Włącz/wyłącz tryb szybkiego dodawania"
-					Style="{StaticResource AppButtonStyle}"
-					Background="{Binding QuickModeBackground}">
-				<StackPanel Orientation="Horizontal">
-					<iconPacks:PackIconMaterial Kind="Barcode" Margin="0,0,8,0" VerticalAlignment="Center"/>
-					<TextBlock Text="Tryb szybkiego dodawania" VerticalAlignment="Center"/>
-				</StackPanel>
-			</Button>
+				<Separator Width="20" Background="Transparent"/>
+				<!-- Odstęp -->
 
-			<Separator Width="20" Background="Transparent"/>
-			<!-- Odstęp -->
+				<Button Command="{Binding ToggleQuickModeCommand}"
+                        ToolTip="Włącz/wyłącz tryb szybkiego dodawania"
+                        Style="{StaticResource AppButtonStyle}"
+                        Background="{Binding QuickModeBackground}">
+					<StackPanel Orientation="Horizontal">
+						<iconPacks:PackIconMaterial Kind="Barcode" Margin="0,0,8,0" VerticalAlignment="Center"/>
+						<TextBlock Text="Tryb szybkiego dodawania" VerticalAlignment="Center"/>
+					</StackPanel>
+				</Button>
 
-			<Button Command="{Binding ExportCommand}" ToolTip="Eksportuj widok do CSV" Style="{StaticResource AppButtonStyle}">
-				<StackPanel Orientation="Horizontal">
-					<iconPacks:PackIconMaterial Kind="FileExportOutline" Margin="0,0,8,0" VerticalAlignment="Center"/>
-					<TextBlock Text="Eksportuj" VerticalAlignment="Center"/>
-				</StackPanel>
-			</Button>
+				<Separator Width="20" Background="Transparent"/>
+				<!-- Odstęp -->
 
-			<Button Command="{Binding ImportCommand}" ToolTip="Importuj dane z pliku CSV" Style="{StaticResource AppButtonStyle}">
-				<StackPanel Orientation="Horizontal">
-					<iconPacks:PackIconMaterial Kind="FileImportOutline" Margin="0,0,8,0" VerticalAlignment="Center"/>
-					<TextBlock Text="Importuj" VerticalAlignment="Center"/>
-				</StackPanel>
-			</Button>
-		</WrapPanel>
+				<Button Command="{Binding ExportCommand}" ToolTip="Eksportuj widok do CSV" Style="{StaticResource AppButtonStyle}">
+					<StackPanel Orientation="Horizontal">
+						<iconPacks:PackIconMaterial Kind="FileExportOutline" Margin="0,0,8,0" VerticalAlignment="Center"/>
+						<TextBlock Text="Eksportuj" VerticalAlignment="Center"/>
+					</StackPanel>
+				</Button>
+
+				<Button Command="{Binding ImportCommand}" ToolTip="Importuj dane z pliku CSV" Style="{StaticResource AppButtonStyle}">
+					<StackPanel Orientation="Horizontal">
+						<iconPacks:PackIconMaterial Kind="FileImportOutline" Margin="0,0,8,0" VerticalAlignment="Center"/>
+						<TextBlock Text="Importuj" VerticalAlignment="Center"/>
+					</StackPanel>
+				</Button>
+			</WrapPanel>
+
+			<!-- Panel użytkownika po prawej stronie -->
+			<StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
+				<TextBlock VerticalAlignment="Center" Margin="0,0,8,0"
+                          Text="{Binding LoggedInUser}"
+                          FontWeight="SemiBold" FontSize="12"/>
+				<Border Background="{DynamicResource MahApps.Brushes.Accent}" CornerRadius="25" Width="32" Height="32">
+					<iconPacks:PackIconMaterial Kind="AccountCircle" Width="20" Height="20"
+                                              Foreground="White"
+                                              HorizontalAlignment="Center"
+                                              VerticalAlignment="Center"/>
+				</Border>
+			</StackPanel>
+		</Grid>
 
 		<!-- Sekcja Filtrowania - poprawione style -->
 		<Border Grid.Row="1" BorderBrush="{DynamicResource MahApps.Brushes.Gray7}" BorderThickness="1" Padding="15" Margin="0,0,0,10" Background="{DynamicResource MahApps.Brushes.Gray9}">
@@ -142,29 +165,29 @@
 
 				<TextBlock Grid.Column="1" Text="Kod kreskowy:" Style="{StaticResource FilterLabel}"/>
 				<TextBox Grid.Column="2" x:Name="txtFilterKodKreskowy" Text="{Binding FilterKodKreskowy, UpdateSourceTrigger=PropertyChanged}"
-						 mah:TextBoxHelper.Watermark="Skanuj lub wpisz kod..."
-						 mah:TextBoxHelper.ClearTextButton="True"
-						 KeyDown="FilterKodKreskowy_KeyDown"
-						 Style="{StaticResource FilterTextBox}" Width="150"/>
+                         mah:TextBoxHelper.Watermark="Skanuj lub wpisz kod..."
+                         mah:TextBoxHelper.ClearTextButton="True"
+                         KeyDown="FilterKodKreskowy_KeyDown"
+                         Style="{StaticResource FilterTextBox}" Width="150"/>
 
 				<TextBlock Grid.Column="3" Text="Marka:" Style="{StaticResource FilterLabel}"/>
 				<TextBox Grid.Column="4" Text="{Binding FilterMarka, UpdateSourceTrigger=PropertyChanged}"
-						 mah:TextBoxHelper.Watermark="Wpisz markę..."
-						 Style="{StaticResource FilterTextBox}" Width="150"/>
+                         mah:TextBoxHelper.Watermark="Wpisz markę..."
+                         Style="{StaticResource FilterTextBox}" Width="150"/>
 
 				<TextBlock Grid.Column="5" Text="Model:" Style="{StaticResource FilterLabel}"/>
 				<TextBox Grid.Column="6" Text="{Binding FilterModel, UpdateSourceTrigger=PropertyChanged}"
-						 mah:TextBoxHelper.Watermark="Wpisz model..."
-						 Style="{StaticResource FilterTextBox}" Width="150"/>
+                         mah:TextBoxHelper.Watermark="Wpisz model..."
+                         Style="{StaticResource FilterTextBox}" Width="150"/>
 
 				<Button Grid.Column="8" Command="{Binding ClearFiltersCommand}" ToolTip="Wyczyść filtry"
-						Style="{StaticResource AppButtonStyle}" Width="36">
+                        Style="{StaticResource AppButtonStyle}" Width="36">
 					<iconPacks:PackIconMaterial Kind="FilterRemoveOutline" Width="16" Height="16"/>
 				</Button>
 			</Grid>
 		</Border>
 
-        <DataGrid Grid.Row="2"
+		<DataGrid Grid.Row="2"
           Name="LaptopyDataGrid"
           ItemsSource="{Binding LaptopyView}"
           SelectedItem="{Binding SelectedLaptop, Mode=TwoWay}"
@@ -177,59 +200,59 @@
           GridLinesVisibility="All"
           RowHeight="32">
 
-            <!-- Obsługa podwójnego kliknięcia -->
-            <DataGrid.InputBindings>
-                <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding EditLaptopCommand}"/>
-            </DataGrid.InputBindings>
+			<!-- Obsługa podwójnego kliknięcia -->
+			<DataGrid.InputBindings>
+				<MouseBinding MouseAction="LeftDoubleClick" Command="{Binding EditLaptopCommand}"/>
+			</DataGrid.InputBindings>
 
-            <!-- Obsługa klawisza Delete -->
-            <DataGrid.CommandBindings>
-                <CommandBinding Command="Delete" CanExecute="DeleteCommand_CanExecute" Executed="DeleteCommand_Executed" />
-            </DataGrid.CommandBindings>
+			<!-- Obsługa klawisza Delete -->
+			<DataGrid.CommandBindings>
+				<CommandBinding Command="Delete" CanExecute="DeleteCommand_CanExecute" Executed="DeleteCommand_Executed" />
+			</DataGrid.CommandBindings>
 
-            <!-- Całkowicie podstawowe style dla DataGrid -->
-            <DataGrid.Resources>
-                <!-- Usunięcie wszystkich stylów i użycie twardych kolorów -->
-                <Style TargetType="DataGridRow">
-                    <Setter Property="Background" Value="White"/>
-                    <Setter Property="Foreground" Value="Black"/>
-                    <Style.Triggers>
-                        <!-- Trigger dla stanu, gdy wiersz jest zarówno zaznaczony JAK I najechany - musi być pierwszy! -->
-                        <MultiTrigger>
-                            <MultiTrigger.Conditions>
-                                <Condition Property="IsSelected" Value="True"/>
-                                <Condition Property="IsMouseOver" Value="True"/>
-                            </MultiTrigger.Conditions>
-                            <Setter Property="Background" Value="DodgerBlue"/>
-                            <!-- Ten sam kolor co dla zwykłego zaznaczenia -->
-                            <Setter Property="Foreground" Value="White"/>
-                        </MultiTrigger>
+			<!-- Całkowicie podstawowe style dla DataGrid -->
+			<DataGrid.Resources>
+				<!-- Usunięcie wszystkich stylów i użycie twardych kolorów -->
+				<Style TargetType="DataGridRow">
+					<Setter Property="Background" Value="White"/>
+					<Setter Property="Foreground" Value="Black"/>
+					<Style.Triggers>
+						<!-- Trigger dla stanu, gdy wiersz jest zarówno zaznaczony JAK I najechany - musi być pierwszy! -->
+						<MultiTrigger>
+							<MultiTrigger.Conditions>
+								<Condition Property="IsSelected" Value="True"/>
+								<Condition Property="IsMouseOver" Value="True"/>
+							</MultiTrigger.Conditions>
+							<Setter Property="Background" Value="DodgerBlue"/>
+							<!-- Ten sam kolor co dla zwykłego zaznaczenia -->
+							<Setter Property="Foreground" Value="White"/>
+						</MultiTrigger>
 
-                        <!-- Trigger dla zwykłego zaznaczenia - niższy priorytet, ale wyższy niż najechanie -->
-                        <Trigger Property="IsSelected" Value="True">
-                            <Setter Property="Background" Value="DodgerBlue"/>
-                            <Setter Property="Foreground" Value="White"/>
-                        </Trigger>
+						<!-- Trigger dla zwykłego zaznaczenia - niższy priorytet, ale wyższy niż najechanie -->
+						<Trigger Property="IsSelected" Value="True">
+							<Setter Property="Background" Value="DodgerBlue"/>
+							<Setter Property="Foreground" Value="White"/>
+						</Trigger>
 
-                        <!-- Trigger dla zwykłego najechania - najniższy priorytet -->
-                        <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Background" Value="LightBlue"/>
-                        </Trigger>
-                    </Style.Triggers>
-                </Style>
+						<!-- Trigger dla zwykłego najechania - najniższy priorytet -->
+						<Trigger Property="IsMouseOver" Value="True">
+							<Setter Property="Background" Value="LightBlue"/>
+						</Trigger>
+					</Style.Triggers>
+				</Style>
 
-                <!-- Styl komórki wyłącza wszelkie efekty wyboru i najechania -->
-                <Style TargetType="DataGridCell">
-                    <Setter Property="Background" Value="Transparent"/>
-                    <Setter Property="BorderThickness" Value="0"/>
-                    <Setter Property="Padding" Value="4"/>
-                    <Style.Triggers>
-                        <Trigger Property="IsSelected" Value="True">
-                            <Setter Property="Background" Value="Transparent"/>
-                        </Trigger>
-                    </Style.Triggers>
-                </Style>
-            </DataGrid.Resources>
+				<!-- Styl komórki wyłącza wszelkie efekty wyboru i najechania -->
+				<Style TargetType="DataGridCell">
+					<Setter Property="Background" Value="Transparent"/>
+					<Setter Property="BorderThickness" Value="0"/>
+					<Setter Property="Padding" Value="4"/>
+					<Style.Triggers>
+						<Trigger Property="IsSelected" Value="True">
+							<Setter Property="Background" Value="Transparent"/>
+						</Trigger>
+					</Style.Triggers>
+				</Style>
+			</DataGrid.Resources>
 
 			<!-- Podstawowe kolumny z prostymi stylami -->
 			<DataGrid.Columns>
@@ -329,26 +352,21 @@
 				</DataGridTextColumn>
 			</DataGrid.Columns>
 
-            <!-- Podstawowy styl nagłówków -->
-            <DataGrid.ColumnHeaderStyle>
-                <Style TargetType="DataGridColumnHeader">
-                    <Setter Property="Background" Value="RoyalBlue"/>
-                    <Setter Property="Foreground" Value="White"/>
-                    <Setter Property="Padding" Value="8,6"/>
-                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
-                    <Setter Property="BorderThickness" Value="0,0,1,1"/>
-                    <Setter Property="BorderBrush" Value="LightGray"/>
-                </Style>
-            </DataGrid.ColumnHeaderStyle>
-        </DataGrid>
+			<!-- Podstawowy styl nagłówków -->
+			<DataGrid.ColumnHeaderStyle>
+				<Style TargetType="DataGridColumnHeader">
+					<Setter Property="Background" Value="RoyalBlue"/>
+					<Setter Property="Foreground" Value="White"/>
+					<Setter Property="Padding" Value="8,6"/>
+					<Setter Property="HorizontalContentAlignment" Value="Center"/>
+					<Setter Property="BorderThickness" Value="0,0,1,1"/>
+					<Setter Property="BorderBrush" Value="LightGray"/>
+				</Style>
+			</DataGrid.ColumnHeaderStyle>
+		</DataGrid>
 
-        <!-- Pasek statusu - dodano wyświetlanie użytkownika -->
+		<!-- Pasek statusu - usunięto wyświetlanie użytkownika -->
 		<StatusBar Grid.Row="3" VerticalAlignment="Bottom" Background="{DynamicResource MahApps.Brushes.Accent}">
-			<StatusBarItem>
-				<!-- Dodany TextBlock dla zalogowanego użytkownika -->
-				<TextBlock Text="{Binding LoggedInUser, StringFormat='Zalogowany jako: {0}'}"
-                           Foreground="White" Padding="8,0" Margin="0,0,15,0"/>
-			</StatusBarItem>
 			<StatusBarItem>
 				<TextBlock Text="{Binding StatusMessage}" Foreground="White" Padding="8,0"/>
 			</StatusBarItem>
@@ -365,5 +383,5 @@
 			</StatusBarItem>
 		</StatusBar>
 
-    </Grid>
+	</Grid>
 </mah:MetroWindow>

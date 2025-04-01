@@ -135,7 +135,7 @@ namespace MagazynLaptopowWPF.ViewModels
             get => IsQuickModeActive ? Brushes.Green : (Brush)Application.Current.Resources["MahApps.Brushes.Gray8"];
         }
 
-        private Laptop? _quickModeLaptop;
+        //private Laptop? _quickModeLaptop;
 
         // --- Komendy (Commands) ---
         public ICommand LoadDataCommand { get; }
@@ -325,6 +325,7 @@ namespace MagazynLaptopowWPF.ViewModels
                     editedLaptop.KodKreskowy != originalLaptop.KodKreskowy)
                 {
                     var existingWithBarcode = await _laptopRepository.GetLaptopByBarcodeAsync(editedLaptop.KodKreskowy);
+                    // Użyj operatora "?." aby bezpiecznie uzyskać dostęp do właściwości Id
                     if (existingWithBarcode != null && existingWithBarcode.Id != editedLaptop.Id)
                     {
                         MessageBox.Show(
@@ -338,16 +339,24 @@ namespace MagazynLaptopowWPF.ViewModels
                     }
                 }
 
-                // Aktualizuj właściwości oryginalnego obiektu
-                originalLaptop.Marka = editedLaptop.Marka;
-                originalLaptop.Model = editedLaptop.Model;
-                originalLaptop.SystemOperacyjny = editedLaptop.SystemOperacyjny;
-                originalLaptop.RozmiarEkranu = editedLaptop.RozmiarEkranu;
-                originalLaptop.Ilosc = editedLaptop.Ilosc;
-                originalLaptop.KodKreskowy = editedLaptop.KodKreskowy;
+                // Tutaj aktualizuj właściwości, ale sprawdź czy originalLaptop nie jest null
+                if (originalLaptop != null) // Dodane sprawdzenie null
+                {
+                    originalLaptop.Marka = editedLaptop.Marka;
+                    originalLaptop.Model = editedLaptop.Model;
+                    originalLaptop.SystemOperacyjny = editedLaptop.SystemOperacyjny;
+                    originalLaptop.RozmiarEkranu = editedLaptop.RozmiarEkranu;
+                    originalLaptop.Ilosc = editedLaptop.Ilosc;
+                    originalLaptop.KodKreskowy = editedLaptop.KodKreskowy;
 
-                // Zapisz zmiany
-                await _dbContext.SaveChangesAsync();
+                    // Zapisz zmiany
+                    await _dbContext.SaveChangesAsync();
+                }
+                else
+                {
+                    // Obsługa przypadku, gdy originalLaptop jest null
+                    throw new Exception($"Nie znaleziono laptopa o ID: {editedLaptop.Id}");
+                }
 
                 // Zaktualizuj wersję w kolekcji UI
                 var uiLaptop = Laptopy.FirstOrDefault(l => l.Id == editedLaptop.Id);
@@ -455,7 +464,7 @@ namespace MagazynLaptopowWPF.ViewModels
         private void ToggleQuickMode()
         {
             IsQuickModeActive = !IsQuickModeActive;
-            _quickModeLaptop = null;
+            // Usunięte: _quickModeLaptop = null;
 
             if (IsQuickModeActive)
             {

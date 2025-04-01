@@ -69,16 +69,18 @@ namespace MagazynLaptopowWPF
 
                 // Opcjonalnie: Dodaj przykładowe dane, jeśli tabela Laptopy jest pusta
                 // To jest przydatne przy pierwszym uruchomieniu lub czystej bazie.
-                if (!await DbContext.Laptopy.AnyAsync())
+                
+                // Sprawdź, czy w bazie są już laptopy z tymi kodami
+                if (!await DbContext.Laptopy.AnyAsync(l => l.KodKreskowy == "5907512566114"))
                 {
                     DbContext.Laptopy.AddRange(
-                       new Laptop { Marka = "Dell", Model = "XPS 13", SystemOperacyjny = "Windows 11", RozmiarEkranu = 13.4, Ilosc = 5, KodKreskowy = "DELLXPS13" },
-                       new Laptop { Marka = "Apple", Model = "MacBook Air M2", SystemOperacyjny = "macOS Sonoma", RozmiarEkranu = 13.6, Ilosc = 3, KodKreskowy = "APPLEM2AIR" },
-                       new Laptop { Marka = "Lenovo", Model = "ThinkPad X1 Carbon", SystemOperacyjny = "Windows 11 Pro", RozmiarEkranu = 14.0, Ilosc = 7, KodKreskowy = "LENX1CAR" },
-                       new Laptop { Marka = "HP", Model = "Spectre x360", SystemOperacyjny = "Windows 11", RozmiarEkranu = 15.6, Ilosc = 2, KodKreskowy = "HPSPECTRE" },
-                       new Laptop { Marka = "Asus", Model = "ZenBook 14", SystemOperacyjny = "Windows 12", RozmiarEkranu = 13.6, Ilosc = 12, KodKreskowy = "ASUSZEN14" }
-                   );
-                    await DbContext.SaveChangesAsync(); // Zapisz dane w bazie
+                        new Laptop { Marka = "Microsoft", Model = "Surface Pro 9", SystemOperacyjny = "Windows 11", RozmiarEkranu = 13.0, Ilosc = 4, KodKreskowy = "5907512566114" },
+                        new Laptop { Marka = "Acer", Model = "Swift 5", SystemOperacyjny = "Windows 11", RozmiarEkranu = 14.0, Ilosc = 8, KodKreskowy = "5907512566121" },
+                        new Laptop { Marka = "Dell", Model = "Inspiron 15", SystemOperacyjny = "Windows 11 Home", RozmiarEkranu = 15.6, Ilosc = 10, KodKreskowy = "5907512566138" },
+                        new Laptop { Marka = "MSI", Model = "Creator Z16", SystemOperacyjny = "Windows 11 Pro", RozmiarEkranu = 16.0, Ilosc = 3, KodKreskowy = "5907512566145" },
+                        new Laptop { Marka = "Razer", Model = "Blade 14", SystemOperacyjny = "Windows 11", RozmiarEkranu = 14.0, Ilosc = 5, KodKreskowy = "5907512566152" }
+                    );
+                    await DbContext.SaveChangesAsync();
                 }
                 return true; // Inicjalizacja pomyślna
             }
